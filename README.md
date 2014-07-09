@@ -1,4 +1,7 @@
-FreeCarto
-=========
+## FreeCarto
 
-Application interactive de cartographie et d'analyse de données
+Application interactive de cartographie et d'analyse de données.
+
+### Description
+
+Bla bla bla
