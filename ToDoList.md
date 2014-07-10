@@ -1,2 +1,2 @@
 - outre ce qu'on a déjà dit en carto (choroplèthe, cercles proportionnels, typo), il faudrait aussi penser à de la carto de flux. La difficulté, c'est qu'à ma connaissance il n'existe pas de code propre sous R pour faire ça... (Joël)
-- à ma connaisance, si on veut mettre des flèches, il n'existe pas de code propre ailleurs non plus... Ce que l'on peut faire a minima c'est ce que faisait philCarto dans sa version précédente(Timothée)
+- à ma connaisance, si on veut mettre des flèches, il n'existe pas de code propre ailleurs non plus... Ce que l'on peut faire a minima c'est ce que faisait philCarto dans sa version précédente (faire des flux quali ou quanti en "ligne droite" type oursins.) (Timothée & Nicolas)
