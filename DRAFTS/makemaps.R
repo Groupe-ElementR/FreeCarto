@@ -4,7 +4,7 @@ rm(list=ls())
 
 
 # ----------------------------------------------------------------------------
-# NewMap - Create a new graphic window => fix the size of the final ouput
+# NewMap  Create a new graphic window => fix the size of the final ouput
 # ----------------------------------------------------------------------------
 
 NewMap<-function(shp,title,sources){
