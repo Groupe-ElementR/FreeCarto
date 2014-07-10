@@ -117,3 +117,5 @@ AddLayer("geom/Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
 AddPropSymbols("geom/Tunisie_snuts4.shp","data/tunisie_data_del_2011.csv",type="height","green")
 
 par(mfrow=c(1,1))
+
+#fin
