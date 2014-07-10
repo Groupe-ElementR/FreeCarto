@@ -2,7 +2,7 @@ library(maptools)
 setwd("/home/nlambert/Documents/R/freeCarto")
 rm(list=ls())
 
-
+# encore un test
 # ----------------------------------------------------------------------------
 # NewMap  Create a new graphic window => fix the size of the final ouput
 # ----------------------------------------------------------------------------
