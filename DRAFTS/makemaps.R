@@ -1,5 +1,5 @@
 library(maptools)
-setwd("/home/nlambert/Documents/R/freeCarto")
+setwd("/home/nlambert/Documents/R/FreeCarto/DATA/TUN/")
 rm(list=ls())
 
 # encore un test
@@ -17,7 +17,7 @@ NewMap<-function(shp,title,sources){
   x2 <- bbox(layer)[3]
   y2 <- bbox(layer)[4]
   plot(layer, col="#FFFFFF00",border="#FFFFFF00",xlim=c(x1,x2), ylim=c(y1,y2))
-  title(main=title,sub=sources,cex.sub=0.7)
+  title(main=title,cex.main=2,sub=sources,cex.sub=1.2)
 }
 
 
@@ -56,22 +56,26 @@ AddLabels<-function(shp,field,color,size){
 # AddPropSymbol - Adding proportionnal symbols
 # ----------------------------------------------------------------------------
 
+# SPECIFS #
+# la jointure se fait sur la 1ere col du fond de carte et du csv
+
+# TODO #
+# génériciser la taille des symboles par défaut : k
+# gestion de la legende : dans la fct ? En dehors ?
+# gerer points et lignes
+# gerer donnes manquantes
+
 
 AddPropSymbols<-function(shp,csv,type="circles",mycol="red"){
   layer <- readShapeSpatial(shp)
+  csv<-read.csv( csv,header=TRUE,sep=";",dec=",",encoding="latin1",)
   # if poly
-  if(getinfo.shape(shp)[2]=="5"){
-    
-    
-    #csv<-"data/tunisie_data_del_2011.csv"
-    #layer <- readShapeSpatial("geom/Tunisie_snuts4.shp")
-    
-    csv<-read.csv( csv,header=TRUE,sep=";",dec=",",encoding="latin1",)
-    pt <- cbind(layer@data[,"id"],as.data.frame(coordinates(layer)))
+  if(getinfo.shape(shp)[2]=="5"){  
+    pt <- cbind(layer@data[,1],as.data.frame(coordinates(layer)))
     colnames(pt) <- c("id","x","y")
     head(pt)
     head(csv)
-    pt = data.frame(pt, csv[match(pt[,"id"], csv[,"del"]),])
+    pt = data.frame(pt, csv[match(pt[,1], csv[,1]),])
     pt$var<-pt$SUP2010
     k<-100000 # coef
     pt$circleSize <- sqrt((pt$var*k)/pi) # surface des cercles
@@ -103,19 +107,17 @@ AddPropSymbols<-function(shp,csv,type="circles",mycol="red"){
 
 par(mfrow=c(1,3))
 
-NewMap("geom/Tunisie_snuts0.shp","Squares","FreeCarto project")
-AddLayer("geom/Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
-AddPropSymbols("geom/Tunisie_snuts4.shp","data/tunisie_data_del_2011.csv",type="squares","yellow")
-#AddLabels("geom/Tunisie_snuts2.shp","id","red",0.6)
+NewMap("Tunisie_snuts4.shp","Squares","FreeCarto project")
+AddLayer("Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
+AddPropSymbols("Tunisie_snuts4.shp","tunisie_data_del_2011.csv",type="squares","yellow")
+#AddLabels("Tunisie_snuts4.shp","id","red",0.6)
 
-NewMap("geom/Tunisie_snuts0.shp","Circles","FreeCarto project")
-AddLayer("geom/Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
-AddPropSymbols("geom/Tunisie_snuts4.shp","data/tunisie_data_del_2011.csv",type="circles","red")
+NewMap("Tunisie_snuts4.shp","Circles","FreeCarto project")
+AddLayer("Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
+AddPropSymbols("Tunisie_snuts4.shp","tunisie_data_del_2011.csv",type="circles","red")
 
-NewMap("geom/Tunisie_snuts0.shp","Height","FreeCarto project")
-AddLayer("geom/Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
-AddPropSymbols("geom/Tunisie_snuts4.shp","data/tunisie_data_del_2011.csv",type="height","green")
+NewMap("Tunisie_snuts4.shp","Height","FreeCarto project")
+AddLayer("Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
+AddPropSymbols("Tunisie_snuts4.shp","tunisie_data_del_2011.csv",type="height","green")
 
 par(mfrow=c(1,1))
-
-#fin
