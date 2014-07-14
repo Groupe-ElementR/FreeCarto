@@ -27,5 +27,9 @@ modules <- list(base = list(inputs = expression(numericInput("attr1",
 
 ## attention : comme les modules sont sourcés dans global.R, ils doivent être les mêmes pour toutes les instances de l'application.
 ## cependant, on peut peut-être imaginer de charger de nouveaux modules "à la volée", en cours d'exécution -- mais est-ce vraiment nécessaire ?
+## pour l'instant on charge tous les modules, mais on peut aussi imaginer (notamment si on charge les modules dans shinyServer) de ne charger que certains modules spécifiques, passés par l'URL.
 
-source("./modules/module1.R")
+fichiers <- list.files("./modules/", pattern = "*.R")
+for (i in fichiers) {
+  source(paste("./modules/",i, sep=""), local = TRUE)
+}
