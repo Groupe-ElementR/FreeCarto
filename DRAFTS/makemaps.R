@@ -30,6 +30,8 @@ layer <- readShapeSpatial(shp)
 if(getinfo.shape(shp)[2]=="5"){plot(layer, border=colorstroke, col=color, lwd=thickness,add=T)}else{} #poly
 if(getinfo.shape(shp)[2]=="3"){plot(layer, col=color, lwd=thickness,add=T)}else{} #line
 if(getinfo.shape(shp)[2]=="1"){points(layer,cex = 0.1, pch=16, add=T)}else{} #dot
+assign("monObjet",c("gff","jjh"),envir = .GlobalEnv)
+
 }
 
 
@@ -121,3 +123,4 @@ AddLayer("Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
 AddPropSymbols("Tunisie_snuts4.shp","tunisie_data_del_2011.csv",type="height","green")
 
 par(mfrow=c(1,1))
+
