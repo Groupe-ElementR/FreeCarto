@@ -1,0 +1,183 @@
+---
+title: "Un système modulaire pour FreeCarto"
+output:
+  rmdformats::html_docco:
+    fig_width: 6
+    fig_height: 6
+    highlight: pygments
+---
+
+
+```{r knitr_init, echo=FALSE, results="asis", cache=FALSE}
+library(knitr)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(fig.path="out/",
+               echo=TRUE,
+	       cache=TRUE,
+               cache.path="cache/",
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+Par nature, le projet *FreeCarto* nécessite une architecture modulaire. Diverses fonctionnalités seront amenées à être développées au cours de la vie du projet, certaines par les auteurs du projet, d'autres par des développeurs externes. On peut aussi imaginer que différentes implémentations de FreeCarto puissent être déployées, avec plus ou moins de modules activés. La gestion de ces modules devrait être aussi aisée que possible, et le développement d'un module supplémentaire devrait pouvoir se faire sans avoir à connaître les détails du cœur du projet. Cela permet à des développeurs externes de contribuer au projet, mais rend également le code plus facilement maintenable à long terme et plus stable. 
+
+L'implémentation de la communication entre le moteur et les modules ne va pas de soi, en particulier dans le cadre d'une application Shiny. Je propose une solution basée sur la programmation orientée objet (OOP) et sur la définition structurée de modules.
+
+La première idée est de définir une classe principale (par exemple `freeCartoMap`), à laquelle sont associées des méthodes (`NewFreeCartoMap`, `plot`, `addLegend`, etc.). Créer un nouveau module consiste alors à définir une ou des classes enfants de la classe principale, ainsi que les méthodes associées. Un avantage est que les méthodes définies pour les classes parents restent valables pour les classes enfants (sauf si elles sont redéfinies) - ainsi, pas besoin de réinventer la roue dans chaque module. Un autre avantage est qu'on peut facilement gérer deux (ou plus) types de représentation graphique (plot classique de R rendu sous forme de raster, et graphique vectoriel rendu via D3.js par exemple) : il suffit de définir autant de méthodes qu'on appliquera au même objet. On peut également imaginer que, dans le cas de représentations cartographiques et de tableaux statistiques, là encore différentes méthodes soient chargés, concomitamment ou séparément, de générer les sorties.
+
+La seconde idée est de stocker dans une liste (il faudra peut-être penser à un environnement plutôt ?) appelée `modules` les différents modules. Ainsi, charger un nouveau module consiste simplement à ajouter un nouvel élément à cette liste. Un module est constitué par du code définissant les `inputs`, du code définissant les `outputs`, et du code définissant ce que fait le `server`. D'autres éléments peuvent éventuellement être inclus dans le module.  
+
+Chaque module se matérialise par un fichier R, placé dans un répertoire intitulé `modules`. L'application charge automatiquement tous les fichiers `.R` placés dans ce répertoire. Dans chaque fichier, on :
+
+- appelle les packages nécessaires,
+- crée les nouvelles classes et méthodes, 
+- définit le code constituant le module lui-même.
+
+Voici un exemple de fichier de module :
+
+```{r module1, eval=FALSE}
+## on commence par charger les packages nécessaires
+library(ggvis)
+
+## on crée la classe nécessaire - ici, elle hérite d'une autre classe, la classe 'test'
+## NB : la définition de ces classes et méthodes peut bien évidemment être effectuée dans un package qui est appelé - c'est même conseillé
+
+setClass("test2",
+         contains = "test",
+         slots = list("attr3" = "numeric"))
+
+## la méthode print est inchangée, donc héritée de la classe 'test'
+
+
+## on définit des méthodes - ici deux méthodes pour ploter, en plot classique et en ggvis. Pour le plot ggvis la fonction générique n'existe pas, donc on la crée
+setMethod("plot",
+          c(x = "test2"),
+          function(x) hist(rnorm(100, x@attr3[1], x@attr3[2])))
+
+setGeneric("plotD3", 
+           def = function(obj) standardGeneric("plotD3"))
+
+setMethod("plotD3", 
+          signature = c(obj = "test2"),
+          definition = function(obj) {
+            df <- data.frame(x = rnorm(100, obj@attr3[1], obj@attr3[2]))
+            df %>% ggvis(~x) %>% layer_histograms()
+          })
+
+## finalement, on définit le code du module lui-même. Ici, le module sera connu sous le nom de 'module1' dans l'application. Il faut envelopper tous les bouts de code dans des expression() pour indiquer à R que c'est du code, pas des characters.
+
+modules$module1 <- list(
+  ## premier élément : les inputs
+                        inputs = expression(numericInput("attr1",
+                                                         "valeur de l'attribut 1 :",
+                                                         value = 0),
+                                            textInput("attr2",
+                                                      "valeur de l'attribut 2 :",
+                                                      value = ""),
+                                            numericInput("attr3Mean",
+                                                         "Moyenne de l'attribut 3",
+                                                         value = 0),
+                                            numericInput("attr3SD",
+                                                         "Écart-type de l'attrbut 3",
+                                                         value = 1)),
+  ## deuxième élément : les outputs
+                        outputs = list(expression(textOutput("resultat")),
+                                       expression(plotOutput("histogramme")),
+                                       expression(ggvisOutput("histD3"))
+                        ),
+  ## troisième élément : le code utilisé côté server
+                        server = list(
+                          ## on commence par créer un objet réactif avec l'instanciation de la classe créée
+                          expression(objet <- reactive(new("test2", attr1 = input$attr1, attr2 = input$attr2, attr3 = c(ifelse(is.null(input$attr3Mean), 0, input$attr3Mean), ifelse(is.null(input$attr3SD), 1, input$attr3SD))))),
+                          ## on crée une première sortie 
+                          expression(output$resultat <- renderText({
+                            print(objet())
+                          })),
+                          ## une deuxième sortie
+                          expression(output$histogramme <- renderPlot({
+                            plot(objet())
+                          })),
+                          ## et enfin une troisième sortie
+                          expression({
+                            p <- plotD3(objet())
+                            bind_shiny(p, "histD3")
+                         })
+                        )
+)
+```
+
+L'intégration dans l'architecture Shiny est simple. Dans le fichier `ui.R`, on inclut un sélecteur pour choisir quel module est chargé (en l'état actuel des choses, on ne peut charger qu'un module à la fois - mais la possibilité de charger plusieurs modules en même temps semble facile), puis on charge tous les `inputs` et les `outputs` - mais ceux-ci sont en réalité définis dans le fichier `server.R`. Ainsi, `ui.R` ressemble à :
+
+```{r uiR, eval=FALSE}
+library(shiny)
+
+shinyUI(fluidPage(
+
+  titlePanel("Titre"),
+
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("module",
+                  label = "Choisir un module",
+                  choices = names(modules)),
+      uiOutput("inputs")
+    ),
+    mainPanel(
+      uiOutput("outputs")
+    )
+  )
+))
+
+```
+
+Le fichier `server.R`, lui, est non seulement responsable de l'exécution du code serveur à proprement parler, mais aussi de la génération dynamique des `inputs` et `outputs` :
+
+```{r serverR, eval=FALSE}
+library(shiny)
+shinyServer(function(input, output, session) {
+
+  # génération des inputs grâce à renderUI
+  output$inputs <- renderUI({
+    ## on évalue le code de l'élément 'inputs' correspondant au module sélectionné
+    ## 'envir=-2' est nécessaire pour avoir accès à input$module
+    lapply(modules[[input$module]][["inputs"]], eval, envir=-2)
+  })
+
+  # on exécute le code serveur. Il faut l'inclure dans observe() pour pouvoir appeler input$module qui est une valeur réactive 
+  observe(lapply(modules[[input$module]][["server"]], eval, envir=-2))
+  
+  # génération des outputs
+  output$outputs <- renderUI({
+    lapply(modules[[input$module]][["outputs"]], eval, envir=-2)
+  })
+})
+
+```
+
+Ainsi, le code du cœur de l'application reste simple et facile à maintenir. Naturellement, dans une application réelle, on inclura dans `ui.R` les contrôles indépendants des modules (et, éventuellement, dans `server.R` le code serveur nécessaire). 
+
+On notera que, dans cette architecture, les variables et objets ne sont pas conservés d'un module à l'autre. On peut toutefois imaginer des mécanismes de stockage de ces valeurs (par exemple, inclure dans la liste correspondant à un module donné un élément stockant les valeurs des paramètres et/ou les objets générés - puisque la liste `modules` est persistante et qu'un module donné connaît son propre nom et éventuellement le nom des autres modules dont il voudrait récupérer les paramètres ou résultats). 
+
+On peut aussi imaginer qu'un module ne propose pas des fonctionnalités indépendantes mais vienne étendre un autre module. Dans ce cas, outre l'utilisation de classes et méthodes prédéfinies, il peut aussi récupérer le code correspondant à ce module et simplement rajouter des éléments. Cela permet d'étendre un module sans (trop) avoir à en comprendre le fonctionnement interne. Imaginons un module `moduleA`, qu'un module `moduleB` viendrait étendre :
+
+```{r moduleEtendu, eval=FALSE}
+## nouvelles classes
+
+code <- modules$moduleA
+
+code$inputs[[length(code$inputs) + 1]] <- expression(textInput("nouveauTexteInput", "Un nouveau texte input", value = ""))
+code$output[[length(code$outputs) + 1]] <- expression(textOutput("nouveauTexteOutput"))
+code$server[[length(code$server) + 1]] <- expression(output$nouveauTexteOutput <- renderText({input$nouveauTexteInput}))
+
+modules$moduleB <- code
+
+```
+
+
+Pour faciliter le travail de développeurs externes (ou, simplement, le nôtre), il conviendra de documenter les classes et méthodes offertes par la base de l'application, afin que les modules puissent étendre ces classes et réutiliser ces méthodes. 

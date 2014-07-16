@@ -1,5 +1,5 @@
 library(maptools)
-setwd("/home/nlambert/Documents/R/FreeCarto/DATA/TUN/")
+setwd("/media/Data/Dropbox/FreeCarto/DATA/TUN/")
 rm(list=ls())
 
 # encore un test
@@ -26,12 +26,19 @@ NewMap<-function(shp,title,sources){
 # ----------------------------------------------------------------------------
 
 AddLayer<-function(shp,colorstroke="black",color="blue",thickness=1){
+<<<<<<< HEAD
 layer <- readShapeSpatial(shp)
 if(getinfo.shape(shp)[2]=="5"){plot(layer, border=colorstroke, col=color, lwd=thickness,add=T)}else{} #poly
 if(getinfo.shape(shp)[2]=="3"){plot(layer, col=color, lwd=thickness,add=T)}else{} #line
 if(getinfo.shape(shp)[2]=="1"){points(layer,cex = 0.1, pch=16, add=T)}else{} #dot
 assign("monObjet",c("gff","jjh"),envir = .GlobalEnv)
 
+=======
+  layer <- readShapeSpatial(shp)
+  if(getinfo.shape(shp)[2]=="5"){plot(layer, border=colorstroke, col=color, lwd=thickness,add=T)}else{} #poly
+  if(getinfo.shape(shp)[2]=="3"){plot(layer, col=color, lwd=thickness,add=T)}else{} #line
+  if(getinfo.shape(shp)[2]=="1"){points(layer,cex = 0.1, pch=16, add=T)}else{} #dot
+>>>>>>> d3599f25ebf2e85d41488630e0f5c43271a70226
 }
 
 
@@ -72,7 +79,7 @@ AddPropSymbols<-function(shp,csv,type="circles",mycol="red"){
   layer <- readShapeSpatial(shp)
   csv<-read.csv( csv,header=TRUE,sep=";",dec=",",encoding="latin1",)
   # if poly
-  if(getinfo.shape(shp)[2]=="5"){  
+  if(getinfo.shape(shp)[2] == "5") {  
     pt <- cbind(layer@data[,1],as.data.frame(coordinates(layer)))
     colnames(pt) <- c("id","x","y")
     head(pt)
@@ -94,7 +101,7 @@ AddPropSymbols<-function(shp,csv,type="circles",mycol="red"){
     symbols(pt[,c("x","y2")],rectangles=tmp,add=TRUE,bg=mycol,inches=FALSE)
     }
         
-  }else{} 
+  } else {} 
   #if line
   if(getinfo.shape(shp)[2]=="3"){}else{} 
   # if dot
@@ -123,4 +130,7 @@ AddLayer("Tunisie_snuts4.shp",colorstroke="#E3E8F7",color="#000099")
 AddPropSymbols("Tunisie_snuts4.shp","tunisie_data_del_2011.csv",type="height","green")
 
 par(mfrow=c(1,1))
+<<<<<<< HEAD
 
+=======
+>>>>>>> d3599f25ebf2e85d41488630e0f5c43271a70226
