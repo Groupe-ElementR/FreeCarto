@@ -1,7 +1,7 @@
 library ("maptools")
 
 setClass (
-  Class = "PropSymbolsLayer" ,
+  Class = "PropSymbols" ,
   slots = c(
     geom = "Spatial",    
     data = "data.frame",
@@ -29,7 +29,7 @@ setGeneric(
   }
 )
 
-setMethod("AddPropSymbolsLayer","PropSymbolsLayer",
+setMethod("AddPropSymbolsLayer","PropSymbols",
   function (object){
 
   if (object@geomId=="undefined"){object@geomId<-names(object@geom@data)[1]}
@@ -64,4 +64,28 @@ setMethod("AddPropSymbolsLayer","PropSymbolsLayer",
   }  
   return(max(dots$circleSize))
 }
+)
+
+setGeneric(
+  name = "AddPropSymbolsLegend" ,
+  def=function (object){ standardGeneric ("AddPropSymbolsLegend")
+  }
+)
+
+setMethod("AddPropSymbolsLegend","PropSymbols",
+function (object){
+  LegTitle<-"Title of\nthe legend\n"
+  text (LegTitle,x=bbox(object@geom)[1],y=bbox(object@geom)[2])
+  #rLeg <- quantile(pt$size,c(1,0.9,0.25,0),type=1,na.rm = TRUE)
+  #rVal <- quantile(pt$var,c(1,0.9,0.25,0),type=1,na.rm = TRUE)
+  #l <- NULL
+  #l$x <- x1
+  #l$y <- y1
+  #xinit <- l$x+rLeg[1]
+  #ypos <- l$y+rLeg
+  #symbols(x=rep(xinit,4),y=ypos,circles=rLeg,add=TRUE,bg=mycol,inches=FALSE)
+  #text(x=rep(xinit,4)+rLeg[1]*1.2,y=(l$y+(2*rLeg)),rVal,cex=0.3,srt=0,adj=0)
+  #for (i in 1:4){  segments (xinit,(l$y+(2*rLeg[i])),xinit+rLeg[1]*1.1,(l$y+(2*rLeg[i])))}
+  #text(x=xinit-rLeg[1],y=(l$y+(2*rLeg[1])),LegTitle,adj=c(0,0),cex=0.6)            
+  }
 )
