@@ -10,7 +10,7 @@ shinyUI(fluidPage(
     ),
 
     mainPanel(
-      textOutput('debug'),
+      #textOutput('debug'),
       uiOutput("userTabs")
     )
   )
