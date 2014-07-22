@@ -7,6 +7,9 @@ shinyServer(function(input, output, session) {
   coordinates(meuse.xy) <- ~x+y
   meuse2 <- SpatialPointsDataFrame(coords = meuse.xy, data = meuse[-c(1,2)])
   
+  userTabs <- reactiveValues()
+  userTabs$tabsetPanelID <- NULL
+  userTabs$selectedTabTitle <- NULL
   
   uiValues <- reactiveValues()
   uiValues$firstTab <- tabPanel(title = "Welcome aboard !", renderPlot(spplot(meuse2, "cadmium")))
@@ -15,9 +18,14 @@ shinyServer(function(input, output, session) {
     input$addTab
     
     randomNb <- round(runif(n = 1, min = 0, max = 100))
-    myPanel <- tabPanel(title = as.character(randomNb), renderPlot(expr = plot(runif(randomNb))))
+    myPanel <- tabPanel(title = as.character(randomNb),
+                        {
+                          print(3)
+                          renderPlot(expr = plot(runif(randomNb)))
+                        })
     myTab <- myPanel
     uiValues[[as.character(randomNb)]] <- myTab
+    userTabs$selectedTabTitle <- myTab$attribs$title
   })
   
   
@@ -29,8 +37,15 @@ shinyServer(function(input, output, session) {
       myTabs <- append(myTabs, tagList(i))
     }
     tabList <- myTabs
-    do.call(tabsetPanel, tabList)
+    do.call(tabsetPanel, list('id'="ABC",tabList))
   })
+  
+#   observe({
+#     userTabs$selectedTabTitle
+#     print(userTabs$selectedTabTitle)
+#     updateTabsetPanel(session = session, inputId = "userTabs", selected = userTabs$selectedTabTitle)
+#   })
+
   
   output$debug <- renderPrint({
     values <- reactiveValuesToList(uiValues)
