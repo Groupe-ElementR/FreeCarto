@@ -1,63 +1,55 @@
 library(shiny)
 
 shinyServer(function(input, output, session) {
-  require(sp)
+  library(sp)
   data(meuse)
   meuse.xy <- meuse[c("x", "y")]
   coordinates(meuse.xy) <- ~x+y
   meuse2 <- SpatialPointsDataFrame(coords = meuse.xy, data = meuse[-c(1,2)])
   
   userTabs <- reactiveValues()
-  userTabs$tabsetPanelID <- NULL
-  userTabs$selectedTabTitle <- NULL
-  
-  uiValues <- reactiveValues()
-  uiValues$firstTab <- tabPanel(title = "Welcome aboard !", renderPlot(spplot(meuse2, "cadmium")))
-  
+  userTabs$firstTab <- tabPanel(title = "Welcome aboard !",
+          renderPlot(spplot(meuse2, "cadmium")),
+          renderPlot(spplot(meuse2, "dist"))          
+)
+
+  userTabsInfo <- reactiveValues()
+  userTabsInfo$selectedTabTitle <- NULL
+  userTabsInfo$tabsOrder <- list('firstTab')
+
+
   observe({
-    input$addTab
     
+    if (input$addTab > 0){
     randomNb <- round(runif(n = 1, min = 0, max = 100))
     myPanel <- tabPanel(title = as.character(randomNb),
-                        {
-                          print(3)
                           renderPlot(expr = plot(runif(randomNb)))
-                        })
+    )
     myTab <- myPanel
-    uiValues[[as.character(randomNb)]] <- myTab
-    userTabs$selectedTabTitle <- myTab$attribs$title
+    userTabs[[as.character(randomNb)]] <- myTab
+    userTabsInfo$tabsOrder <- isolate(append(userTabsInfo$tabsOrder, as.character(randomNb)))
+    userTabsInfo$selectedTabTitle <- myTab$attribs$title
+    }
   })
   
   
   output$userTabs <- renderUI({
     input$addTab
-    values <- reactiveValuesToList(uiValues)
+    values <- userTabsInfo$tabsOrder
     myTabs <- list()
     for (i in values){
-      myTabs <- append(myTabs, tagList(i))
+      if (!is.null(userTabs[[i]])){
+        myTabs <- append(myTabs, tagList(userTabs[[i]]))
+      }
     }
     tabList <- myTabs
-    do.call(tabsetPanel, list('id'="ABC",tabList))
+    do.call(tabsetPanel, c(tabList, id="tabsetPanelID"))
   })
   
-#   observe({
-#     userTabs$selectedTabTitle
-#     print(userTabs$selectedTabTitle)
-#     updateTabsetPanel(session = session, inputId = "userTabs", selected = userTabs$selectedTabTitle)
-#   })
-
-  
-  output$debug <- renderPrint({
-    values <- reactiveValuesToList(uiValues)
-    myTabs <- tagList()
-    for (i in values){
-      myTabs <- append(myTabs, tagList(i))
-    }
-    #class(myTabs)
-    str(myTabs)
-    #tagList(myTabs)
-    
+  observe({
+    userTabsInfo$selectedTabTitle
+    print(userTabsInfo$selectedTabTitle)
+    updateTabsetPanel(session = session, inputId = "tabsetPanelID", selected = userTabsInfo$selectedTabTitle)
   })
-  
 
 })
