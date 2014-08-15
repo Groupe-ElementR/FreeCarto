@@ -17,19 +17,19 @@ shinyServer(function(input, output, session) {
   
   userTabs <- reactiveValues() # list of all tab objects created, that is reloaded each time a new tab is added
   userTabs$firstTab <- tabPanel(title = "Welcome aboard !",
-          selectInput(inputId = paste("firstTab", "varToMap", sep="-"), label = "Choose var", choices = names(meuse2)),
+          selectInput(inputId = paste("firstTab", "varToMap", sep="-"),
+                      label = "Choose var",
+                      choices = names(meuse2)),
           renderUI(tags$h2(userTabsValues$firstTab$varToMap)),
           renderPlot(spplot(meuse2, userTabsValues$firstTab$varToMap))
-          
-)
-
-
-# save the values of the tabs inputs
-# TODO : need a loop there to save all the Inputs
-observe({
-  input[[paste("firstTab", "varToMap", sep="-")]]
-  userTabsValues$firstTab$varToMap <- input[[paste("firstTab", "varToMap", sep="-")]]
-
+          )
+  observe({
+    userTabsInfo$selectedTabTitle
+    userTabsValues$firstTab$varToMap <- input[[paste("firstTab", "varToMap", sep="-")]]
+    updateSelectInput(session = session,
+                      inputId = paste("firstTab", "varToMap", sep="-"),
+                      choices = names(meuse2),
+                      selected = userTabsValues$firstTab$varToMap)
   })
 
 
@@ -39,12 +39,50 @@ observe({
   observe({
     if (input$addTab > 0){
     randomNb <- round(runif(n = 1, min = 0, max = 100))
-    myPanel <- tabPanel(title = as.character(randomNb),
-                          renderPlot(expr = plot(runif(randomNb)))
+    tabName <- as.character(randomNb)
+    switch(isolate(input$tabType),
+           'scplot' = {
+             myPanel <- tabPanel(title = tabName,
+                                 selectInput(inputId = paste(tabName, "linetype", sep="-"),
+                                             label = "Line type",
+                                             choices = c("line" = "l", "point" = "p","both" = "b"),
+                                             multiple = FALSE),
+                                 renderPlot(expr = plot(runif(randomNb),
+                                                        type = input[[paste(tabName, "linetype", sep="-")]]))
+             )
+             userTabsValues[[tabName]] <- list('linetype' = 'line')
+             observe({
+               userTabsInfo$selectedTabTitle
+               userTabsValues[[tabName]][['linetype']] <- input[[paste(tabName, "linetype", sep="-")]]
+               updateSelectInput(session = session,
+                                 inputId = paste(tabName, "linetype", sep="-"),
+                                 choices = c("line" = "l", "point" = "p","both" = "b"),
+                                 selected = userTabsValues[[tabName]][['linetype']])
+             })
+           },
+           'histplot' = {
+             myPanel <- tabPanel(title = tabName,
+                                 sliderInput(inputId = paste(tabName, "numcells", sep="-"),
+                                             label = "Nb bars", min = 2, max = 10,
+                                             value = 5, animate = TRUE),
+                                 renderPlot(expr = hist(runif(randomNb),
+                                                        breaks = input[[paste(tabName, "numcells", sep="-")]]))
+             )
+             userTabsValues[[tabName]] <- list('numcells' = 5)
+             observe({
+               userTabsInfo$selectedTabTitle
+               userTabsValues[[tabName]][["numcells"]] <- input[[paste(tabName, "numcells", sep="-")]]
+               updateSliderInput(session = session,
+                                 inputId = paste(tabName, "numcells", sep="-"),
+                                 label = "Nb bars",
+                                 value = userTabsValues[[tabName]][["numcells"]])
+             })
+           }
+           
     )
     myTab <- myPanel
-    userTabs[[as.character(randomNb)]] <- myTab
-    userTabsInfo$tabsOrder <- isolate(append(userTabsInfo$tabsOrder, as.character(randomNb)))
+    userTabs[[tabName]] <- myTab
+    userTabsInfo$tabsOrder <- isolate(append(userTabsInfo$tabsOrder, tabName))
     userTabsInfo$selectedTabTitle <- myTab$attribs$title
     }
   })
@@ -69,11 +107,5 @@ observe({
     updateTabsetPanel(session = session, inputId = "tabsetPanelID", selected = userTabsInfo$selectedTabTitle)
   })
 
-# this observe is used to update the tabs inputs, and so, to keep them in their last known state each time a new tab is added 
-# TODO : need a loop there to update all the selectInput
-  observe({
-    userTabsInfo$selectedTabTitle
-    updateSelectInput(session = session, inputId = paste("firstTab", "varToMap", sep="-"), choices = names(meuse2), selected = userTabsValues$firstTab$varToMap)
-  })
 
 })
