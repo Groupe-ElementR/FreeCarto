@@ -8,7 +8,7 @@ shinyUI(fluidPage(
     sidebarPanel(
       radioButtons(inputId = "tabType",
                    label = "Tab type",
-                   choices = c("Scatterplot" = "scplot", "Histogram" = "histplot")),
+                   choices = c("SelectInput" = "select", "SliderInput" = "slider")),
       actionButton(inputId = "addTab",
                    label = "Add Tab")
     ),

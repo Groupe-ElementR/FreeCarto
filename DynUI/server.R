@@ -1,6 +1,7 @@
 library(shiny)
 
 shinyServer(function(input, output, session) {
+  
   library(sp)
   data(meuse)
   meuse.xy <- meuse[c("x", "y")]
@@ -35,13 +36,12 @@ shinyServer(function(input, output, session) {
 
 
 # generate the new tabs when clicking on Add tab
-# TODO : need to add a userInput on each tab to test
   observe({
     if (input$addTab > 0){
-    randomNb <- round(runif(n = 1, min = 0, max = 100))
-    tabName <- as.character(randomNb)
+    randomNb <- round(runif(n = 1, min = 5, max = 200))
     switch(isolate(input$tabType),
            'scplot' = {
+             tabName <- paste("scplot", as.character(randomNb), sep="_")
              myPanel <- tabPanel(title = tabName,
                                  selectInput(inputId = paste(tabName, "linetype", sep="-"),
                                              label = "Line type",
@@ -61,21 +61,25 @@ shinyServer(function(input, output, session) {
              })
            },
            'histplot' = {
+             tabName <- paste("myhist", as.character(randomNb), sep="_")
              myPanel <- tabPanel(title = tabName,
+                                 renderUI(tags$h2(input[[paste(tabName, "numcells", sep="-")]])),
                                  sliderInput(inputId = paste(tabName, "numcells", sep="-"),
                                              label = "Nb bars", min = 2, max = 10,
-                                             value = 5, animate = TRUE),
+                                             value = 5),
                                  renderPlot(expr = hist(runif(randomNb),
-                                                        breaks = input[[paste(tabName, "numcells", sep="-")]]))
+                                                        #breaks = input[[paste(tabName, "numcells", sep="-")]]))
+                                                        ))
+                                 
              )
              userTabsValues[[tabName]] <- list('numcells' = 5)
              observe({
                userTabsInfo$selectedTabTitle
-               userTabsValues[[tabName]][["numcells"]] <- input[[paste(tabName, "numcells", sep="-")]]
+               userTabsValues[[tabName]][['numcells']] <- input[[paste(tabName, "numcells", sep="-")]]
                updateSliderInput(session = session,
                                  inputId = paste(tabName, "numcells", sep="-"),
                                  label = "Nb bars",
-                                 value = userTabsValues[[tabName]][["numcells"]])
+                                 value = userTabsValues[[tabName]][['numcells']])
              })
            }
            
