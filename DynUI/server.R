@@ -67,7 +67,7 @@ shinyServer(function(input, output, session) {
                                  sliderInput(inputId = paste(tabName, "numcells", sep="-"),
                                              label = "Nb bars", min = 2, max = 10,
                                              value = 5),
-                                 renderPlot(expr = hist(runif(randomNb),
+                                 renderPlot(expr = hist(runif(randomNb)
                                                         #breaks = input[[paste(tabName, "numcells", sep="-")]]))
                                                         ))
                                  
