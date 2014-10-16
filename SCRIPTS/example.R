@@ -1,4 +1,5 @@
 setwd("~/Dropbox/RiateLab")
+getwd()
 source("sources/freeCarto.R")
 
 geomTunisie <- readOGR(dsn ="data/",layer = "Tunisie_snuts4" )
@@ -10,9 +11,9 @@ dataTunisie <- read.csv( "data/tunisie_data_del_2011.csv",header=TRUE,sep=";",de
 
 
 # Add a map from osm, stamen, bing...
-OSMMap(obj = geomTunisie, type = "stamen-watercolor", add = T) 
+OSMMap(obj = geomTunisie, type = "stamen-watercolor", add = F) 
 # Add layers (point, poly, line)
-StaticMap(obj = geomTunisie, add = F, col = "#D2EAE7", border = "#56726E", lwd = 0.5)
+StaticMap(obj = geomTunisie, add = T, col = "#D2EAE7", border = "#56726E", lwd = 0.5)
 StaticMap(obj = coast, add = T, col = "purple", lwd = 2)
 # Add a nice layout
 LayoutMap(title = "Check Dat Sweet Map of Tunisia", sources = "Recensement Tunisie", author = "Ouam", frame = T, north = T)
@@ -20,6 +21,12 @@ LayoutMap(title = "Check Dat Sweet Map of Tunisia", sources = "Recensement Tunis
 SymbolsMap(obj = geomTunisie, data = dataTunisie, datavar = "SUP2010", 
            symbols = "squares", col = "blue", col2 = "green", 
            breakval = 50000, k = 0.05, pos = "topleft", title = "Superficie",add = T) 
+
+
+
+StaticMap(obj = geomTunisie, add = F, col = "#D2EAE7", border = "#56726E", lwd = 0.5)
+StaticMap(obj = coast, add = T, col = "purple", lwd = 2)
+LayoutMap(title = "Check Dat Sweet Map of Tunisia", sources = "Recensement Tunisie", author = "Ouam", frame = T, north = T)
 SymbolsDuoMap(obj = geomTunisie, data = dataTunisie, datavar = "IMMIG9404", datavar2 = "EMIG9404", k=300000)
 
 
