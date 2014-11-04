@@ -1,10 +1,10 @@
 # 1. Sources
 
-source("lib/PropSymbols.class.R")
-source("lib/PropSymbolsDuo.class.R")
-source("lib/StaticLayer.class.R")
-source("lib/MapLayout.class.R")
-source("lib/OSMLayer.class.R")
+source("/mnt/data/depot/FreeCarto/SCRIPTS/lib/PropSymbols.class.R")
+source("/mnt/data/depot/FreeCarto/SCRIPTS/lib/PropSymbolsDuo.class.R")
+source("/mnt/data/depot/FreeCarto/SCRIPTS/lib/StaticLayer.class.R")
+source("/mnt/data/depot/FreeCarto/SCRIPTS/lib/MapLayout.class.R")
+source("/mnt/data/depot/FreeCarto/SCRIPTS/lib/OSMLayer.class.R")
 # source("lib/LinkLayer.class.R")
 # source("lib/FITLayer.class.R")
 
