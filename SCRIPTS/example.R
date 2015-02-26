@@ -1,10 +1,12 @@
-setwd("~/Dropbox/RiateLab")
-getwd()
+setwd("/mnt/data/depot/FreeCarto/SCRIPTS")
 source("sources/freeCarto.R")
 
 geomTunisie <- readOGR(dsn ="data/",layer = "Tunisie_snuts4" )
 coast <- readOGR(dsn ="data/",layer = "coast" )
 dataTunisie <- read.csv( "data/tunisie_data_del_2011.csv",header=TRUE,sep=";",dec=",",encoding="latin1",)
+
+
+
 
 # plot(geomTunisie)
 # head(dataTunisie)
@@ -12,6 +14,7 @@ dataTunisie <- read.csv( "data/tunisie_data_del_2011.csv",header=TRUE,sep=";",de
 
 # Add a map from osm, stamen, bing...
 OSMMap(obj = geomTunisie, type = "stamen-watercolor", add = F) 
+
 # Add layers (point, poly, line)
 StaticMap(obj = geomTunisie, add = T, col = "#D2EAE7", border = "#56726E", lwd = 0.5)
 StaticMap(obj = coast, add = T, col = "purple", lwd = 2)
@@ -20,7 +23,7 @@ LayoutMap(title = "Check Dat Sweet Map of Tunisia", sources = "Recensement Tunis
 # Add a nice proportional symbols layer
 SymbolsMap(obj = geomTunisie, data = dataTunisie, datavar = "SUP2010", 
            symbols = "squares", col = "blue", col2 = "green", 
-           breakval = 50000, k = 0.05, pos = "topleft", title = "Superficie",add = T) 
+           breakval = 50000, k = 0.05, add = T) 
 
 
 
