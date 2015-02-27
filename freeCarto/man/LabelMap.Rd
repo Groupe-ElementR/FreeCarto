@@ -2,7 +2,7 @@
 % Please edit documentation in R/StaticLayer.R
 \name{LabelMap}
 \alias{LabelMap}
-\title{StaticMap function.}
+\title{LabelMap function.}
 \usage{
 LabelMap(obj, data, objid = NA, dataid = NA, txt, col = "black",
   cex = 0.7)
@@ -23,7 +23,7 @@ LabelMap(obj, data, objid = NA, dataid = NA, txt, col = "black",
 \item{cex}{Labels size}
 }
 \description{
-StaticMap function.
+LabelMap function.
 }
 \examples{
 data("TNdeleg")

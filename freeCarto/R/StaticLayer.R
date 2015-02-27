@@ -26,7 +26,6 @@ setClass (
 #' Method AddStaticLayer
 #' @name AddStaticLayer
 #' @rdname AddStaticLayer-method
-#' @aliases AddStaticLayer,StaticLayer-method
 #' @param object Object of class StaticLayer
 #' @exportMethod AddStaticLayer
 #' @docType methods
@@ -38,7 +37,6 @@ setGeneric(
 
 #' Method AddLabels
 #' @name AddLabels
-#' @aliases AddLabels,StaticLayer-method
 #' @rdname AddLabels-method
 #' @param object Object of class StaticLayer
 #' @exportMethod AddLabels
@@ -53,7 +51,6 @@ setGeneric(
 
 #### Methods creation
 #' @rdname AddStaticLayer-method
-#' @aliases AddStaticLayer,StaticLayer,StaticLayer-method
 #' @docType methods
 #' @import sp
 setMethod("AddStaticLayer","StaticLayer",
@@ -71,8 +68,7 @@ setMethod("AddStaticLayer","StaticLayer",
 )
 
 
-# #' @rdname AddLabels-method
-#' @aliases AddLabels,StaticLayer,StaticLayer-method
+#' @rdname AddLabels-method
 #' @import sp
 #' @docType methods
 setMethod("AddLabels","StaticLayer",
@@ -81,7 +77,6 @@ setMethod("AddLabels","StaticLayer",
             {
               dots <- cbind(object@geom@data[,object@geomId],as.data.frame(coordinates(object@geom)))
               colnames(dots) <- c(object@geomId,"x","y")
-              print(object@geomId)
               dots <- data.frame(dots, object@data[match(dots[,object@geomId], object@data[,object@dataId]),])
               dots <- dots[order(dots[,object@labelField],decreasing=TRUE),]
               text(dots$x, dots$y , labels = dots[,object@labelField],cex=object@labelSize,col=object@labelCol)
@@ -122,18 +117,16 @@ setMethod("AddLabels","StaticLayer",
 #' StaticMap(obj = FRdep.spdf, col = "black", border = "red", lwd = 0.75, add = FALSE)
 StaticMap <- function(obj, col = "#EFDEC1", border = "black", lwd = 1, add = FALSE){
   map <- new(Class = "StaticLayer")
-  if (is.na(col)){col <- NA_character_}
-  if (is.na(border)){border <- NA_character_}
   map@geom <- obj
-  map@col <- col
-  map@border <- border
+  map@col <- as.character(col)
+  map@border <- as.character(border)
   map@thickness <- lwd
   map@add <- add
   AddStaticLayer(object = map)
 }
 
 
-#' StaticMap function.
+#' LabelMap function.
 #'
 #' @name LabelMap
 #' @param obj Spatial*DataFrame

@@ -3,7 +3,6 @@
 \docType{methods}
 \name{AddLabels}
 \alias{AddLabels}
-\alias{AddLabels,StaticLayer,StaticLayer-method}
 \alias{AddLabels,StaticLayer-method}
 \title{Method AddLabels}
 \usage{
@@ -16,7 +15,5 @@ AddLabels(object)
 }
 \description{
 Method AddLabels
-
-#
 }
 

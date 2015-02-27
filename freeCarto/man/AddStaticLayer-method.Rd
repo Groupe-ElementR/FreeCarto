@@ -3,7 +3,6 @@
 \docType{methods}
 \name{AddStaticLayer}
 \alias{AddStaticLayer}
-\alias{AddStaticLayer,StaticLayer,StaticLayer-method}
 \alias{AddStaticLayer,StaticLayer-method}
 \title{Method AddStaticLayer}
 \usage{
