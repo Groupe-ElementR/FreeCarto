@@ -23,8 +23,12 @@ shinyUI(fluidPage(
                  icon = icon(name = "picture-o")
                  
                  ),
-        tabPanel(title = "Fouille",
-                 icon = icon(name = "bar-chart")),
+        tabPanel(title = "Analyse",
+                 icon = icon(name = "bar-chart"),
+                 tabsetPanel(
+                 tabPanel(title = "CAH"),
+                 tabPanel(title = "ACP"),
+                 tabPanel(title = "Régression"))),
         tabPanel(title = "Graphiques",
                  icon = icon(name = "pencil-square-o"),
                  sidebarPanel(
