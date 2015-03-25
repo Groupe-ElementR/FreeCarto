@@ -26,9 +26,18 @@ shinyUI(fluidPage(
         tabPanel(title = "Analyse",
                  icon = icon(name = "bar-chart"),
                  tabsetPanel(
-                 tabPanel(title = "CAH"),
-                 tabPanel(title = "ACP"),
-                 tabPanel(title = "Régression"))),
+                  tabPanel(title = "CAH",
+                           icon = icon(name = "tree"),
+                           sidebarPanel(
+                             selectInput(inputId = "cah-variables", label = "Choose CAH variables",
+                                         choices = colnames(isolate(baseData$data)), multiple = TRUE)
+                             )
+                           ),
+                  tabPanel(title = "ACP", 
+                           icon = icon(name = "stats", lib = "glyphicon", class = "fa-rotate-90")
+                           
+                           ),
+                  tabPanel(title = "Régression"))),
         tabPanel(title = "Graphiques",
                  icon = icon(name = "pencil-square-o"),
                  sidebarPanel(

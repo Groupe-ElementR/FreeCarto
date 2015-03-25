@@ -5,13 +5,10 @@
 require(shiny)
 require(cluster)
 require(freeCarto)
-load("TNdeleg.RData")
+
 
 shinyServer(function(input, output, session) {
-  
-  baseData <- reactiveValues()
-  baseData$spdf <- TNdeleg.spdf
-  baseData$data <- TNdeleg
+
   
   output$fullDF <- renderDataTable({
     baseData$data
