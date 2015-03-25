@@ -11,6 +11,7 @@ shinyUI(fluidPage(
   # Sidebar
     # Show a plot of the generated distribution
     mainPanel(
+      actionButton('blob', label = "Blob"),
       tabsetPanel(
         tabPanel(title = "Accueil",
                  icon = icon(name = "home")),
@@ -28,10 +29,16 @@ shinyUI(fluidPage(
                  tabsetPanel(
                   tabPanel(title = "CAH",
                            icon = icon(name = "tree"),
-                           sidebarPanel(
-                             selectInput(inputId = "cah-variables", label = "Choose CAH variables",
-                                         choices = colnames(isolate(baseData$data)), multiple = TRUE)
-                             )
+                           column(width = 6,
+                                  selectInput(inputId = "cahVariables",
+                                              label = "Choose CAH variables",
+                                              choices = colnames(isolate(baseData$data)),
+                                              multiple = TRUE)),
+                           column(width = 6,
+                                  sliderInput(inputId = "cahClasses",
+                                              label = "Number of clusters",
+                                              min = 2, max = 10, value= 3)),
+                           plotOutput(outputId = "cahTree")
                            ),
                   tabPanel(title = "ACP", 
                            icon = icon(name = "stats", lib = "glyphicon", class = "fa-rotate-90")

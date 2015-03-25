@@ -1,2 +1,6 @@
+require(shiny)
+require(freeCarto)
+require(sp)
+require(cluster)
 load("TNdeleg.RData")
 baseData <- reactiveValues(spdf = TNdeleg.spdf, data = TNdeleg)

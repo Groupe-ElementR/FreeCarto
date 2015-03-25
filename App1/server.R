@@ -2,10 +2,6 @@
 #### Shiny Server ####
 ######################
 
-require(shiny)
-require(cluster)
-require(freeCarto)
-
 
 shinyServer(function(input, output, session) {
 
@@ -50,6 +46,18 @@ shinyServer(function(input, output, session) {
   output$userdata <- renderDataTable({
     iris$CLUSTER <- cutree(makeClusters(), input$nbClus)
     return(iris)
+  })
+  
+  output$cahTree <- renderPlot({
+    plot(baseData$data)
+  })
+  
+  observe({
+    baseData$data
+    updateSelectInput(session = session, inputId = "cahVariables",
+                      label = "Choose CAH variables",
+                      selected = isolate(input$cahVariables),
+                      choices = colnames(baseData$data))
   })
   
 })
