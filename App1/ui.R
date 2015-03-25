@@ -12,10 +12,18 @@ shinyUI(fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       tabsetPanel(
-        tabPanel(title = "Accueil"),
-        tabPanel(title = "Données"),
-        tabPanel(title = "Carto"),
-        tabPanel(title = "Fouille"),
+        tabPanel(title = "Accueil",
+                 icon = icon(name = "home")),
+        tabPanel(title = "Données",
+                 icon = icon(name = "database")
+                 
+                 ),
+        tabPanel(title = "Carto",
+                 icon = icon(name = "picture-o")
+                 
+                 ),
+        tabPanel(title = "Fouille",
+                 icon = icon(name = "bar-chart")),
         tabPanel(title = "Graphiques",
                  icon = icon(name = "pencil-square-o"),
                  sidebarPanel(
