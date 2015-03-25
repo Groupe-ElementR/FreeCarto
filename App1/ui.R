@@ -44,7 +44,46 @@ shinyUI(fluidPage(
                            icon = icon(name = "stats", lib = "glyphicon", class = "fa-rotate-90")
                            
                            ),
-                  tabPanel(title = "Régression"))),
+                  tabPanel(title = "Analyse",
+                           icon = icon(name = "bar-chart"),
+                           tabsetPanel(
+                             tabPanel(title = "CAH"),
+                             tabPanel(title = "ACP"),
+                             tabPanel(title = "Régression",
+                                      fluidRow(
+                                        column(3, wellPanel(
+                                          tags$h4("Sélection des variables"),
+                                          selectInput(inputId = "regvardep", 
+                                                      label = "Variable à expliquer", 
+                                                      choices = "", 
+                                                      selected = "", 
+                                                      multiple = FALSE, 
+                                                      selectize = TRUE),
+                                          selectInput(inputId = "regvarindep", 
+                                                      label = "Variable(s) explicative(s)", 
+                                                      choices = "", 
+                                                      selected = "", 
+                                                      multiple = TRUE, 
+                                                      selectize = TRUE),
+                                          selectInput(inputId = "regvary", 
+                                                      label = "Graphique : variable Y", 
+                                                      choices = "", 
+                                                      selected = "", 
+                                                      multiple = FALSE, 
+                                                      selectize = TRUE),
+                                          selectInput(inputId = "regxvarx", 
+                                                      label = "Graphique : variable X", 
+                                                      choices = "", 
+                                                      selected = "", 
+                                                      multiple = FALSE, 
+                                                      selectize = TRUE),
+                                          actionButton("addabsresid", "Ajouter les résidus absolus"),
+                                          actionButton("addrelresid", "Ajouter les résidus relatifs")
+                                        )),
+                                        column(9, 
+                                               plotOutput("scatterplot"),
+                                               htmlOutput("coefreg")
+                                               htmlOutput("matcor")))))),
         tabPanel(title = "Graphiques",
                  icon = icon(name = "pencil-square-o"),
                  sidebarPanel(
