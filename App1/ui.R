@@ -2,12 +2,6 @@
 #### Shiny User interface ####
 ##############################
 
-# Load packages ----
-
-require(shiny)
-require(cluster)
-
-
 # Shiny ui ----
 
 shinyUI(fluidPage(

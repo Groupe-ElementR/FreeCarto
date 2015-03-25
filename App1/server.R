@@ -2,6 +2,10 @@
 #### Shiny Server ####
 ######################
 
+require(shiny)
+require(cluster)
+require(freeCarto)
+
 shinyServer(function(input, output, session) {
   
   # Combine the selected variables into a new data frame
