@@ -15,8 +15,9 @@ shinyUI(fluidPage(
         tabPanel(title = "Accueil",
                  icon = icon(name = "home")),
         tabPanel(title = "Données",
-                 icon = icon(name = "database")
-                 
+                 icon = icon(name = "database"),
+                 plotOutput('baseMap'),
+                 dataTableOutput("fullDF")
                  ),
         tabPanel(title = "Carto",
                  icon = icon(name = "picture-o")
