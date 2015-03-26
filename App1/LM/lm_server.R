@@ -2,7 +2,7 @@
 
 # Compute linear regression
 linMod <- reactive({
-  ComputeRegression(df = baseData$data, varx = input$regvarx, vary = input$regvary)
+  ComputeRegression(df = baseData$data, vardep = input$regvardep, varindep = input$regvarindep)
 })
 
 # Print scatter plot
@@ -12,12 +12,12 @@ output$scatterplot <- renderPlot({
 
 # Print coefficients
 output$coefreg <- renderText({
-  print(xtable(linMod()$TABCOEF), type = "HTML")
+  print.xtable(xtable(linMod()$TABCOEF), type = "HTML", include.rownames = FALSE, html.table.attributes = "frame = border")
 })
 
 # Print correlation matrix
 output$matcor <- renderText({
-  print(xtable(linMod()$MATCOR), type = "HTML")
+  print.xtable(xtable(linMod()$MATCOR), type = "HTML", include.rownames = TRUE, html.table.attributes = "frame = border")
 })
 
 # Add new variables (absolute and relative residuals)

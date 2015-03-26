@@ -29,10 +29,18 @@ output$lm <- renderUI({
       actionButton("addabsresid", "Ajouter les résidus absolus"),
       actionButton("addrelresid", "Ajouter les résidus relatifs")
     )),
-    column(9, 
-           plotOutput("scatterplot"),
+    column(6, 
+           tags$h4("Nuage de points et droite de régression"),
+           plotOutput("scatterplot")
+    ),
+    column(3,
+           tags$h4("Coefficients du modèle de régression"),
            htmlOutput("coefreg"),
+           tags$h4("Matrice de corrélation"),
            htmlOutput("matcor")
     )
   )
 })
+
+
+
