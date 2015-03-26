@@ -1,3 +1,5 @@
+source("CAH/A2R.R")
+
 analysisData <- reactiveValues(cah = NA, clusters = NA)
 
 
