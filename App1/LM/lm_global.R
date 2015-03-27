@@ -7,8 +7,8 @@ ComputeRegression <- function(df, vardep, varindep){
   rawR2 <- round(linMod$r.squared, digits = 2)
   adjR2 <- round(linMod$adj.r.squared, digits = 2)
   matCor <- round(cor(df[, c(vardep, varindep)], use = "complete.obs", method = "pearson"), digits = 3)
-  tabResid <- data.frame(ABSRESID = linMod$residuals, 
-                         RELRESID = linMod$residuals / (df[, vardep] - linMod$residuals))
+  tabResid <- data.frame(ABSRESID = round(linMod$residuals, digits = 3), 
+                         RELRESID = round(linMod$residuals / (df[, vardep] - linMod$residuals), digits = 4))
   
   tabResults <- data.frame(CONCEPT = c("Coef. de détermination",
                                        "Coef. de détermination multiple",

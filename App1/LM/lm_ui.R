@@ -26,8 +26,13 @@ output$lm <- renderUI({
                   selected = "", 
                   multiple = FALSE, 
                   selectize = TRUE),
-      actionButton("addabsresid", "Ajouter les résidus absolus"),
-      actionButton("addrelresid", "Ajouter les résidus relatifs")
+      checkboxInput("regsave", "Enregistrer les résidus"),
+      conditionalPanel(condition = "input.regsave == true",
+                       fluidRow(
+                         column(2, textInput(inputId = "regprefix", label = "Préfixe", value = "")),
+                         column(1, actionButton(inputId = "addregresid", label = "Ajouter les résidus"))
+                       )
+      )
     )),
     column(6, 
            tags$h4("Nuage de points et droite de régression"),
