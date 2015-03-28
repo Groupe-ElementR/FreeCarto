@@ -47,7 +47,7 @@ output$matcor <- renderText({
 
 # Add new variables (absolute and relative residuals)
 
-observeEvent(input$addregresid, function() {
+observeEvent(input$addregresid, {
   absName <- paste(isolate(input$regprefix), "AbsResid", sep = "_")
   relName <- paste(isolate(input$regprefix), "RelResid", sep = "_")
   baseData$data[, c(absName, relName)] <- linMod()$TABRESID

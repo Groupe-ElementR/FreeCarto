@@ -1,4 +1,4 @@
-
+library(xtable)
 
 # Compute linear model ----
 ComputeRegression <- function(df, vardep, varindep){

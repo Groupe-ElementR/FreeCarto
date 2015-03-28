@@ -1,3 +1,5 @@
+library(reshape2)
+library(ggplot2)
 source("CAH/A2R.R")
 
 analysisData <- reactiveValues(cah = NA, clusters = NA)
