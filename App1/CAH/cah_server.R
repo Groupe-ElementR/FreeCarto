@@ -42,14 +42,15 @@ observe({
   updateSelectInput(session = session, inputId = "cahVariables",
                     label = "Choose CAH variables",
                     selected = isolate(input$cahVariables),
-                    choices = colnames(baseData$data))
+                    choices = colnames(baseData$data[, sapply(baseData$data, is.numeric)]))
 })
 
 observe({
   if (any(!is.null(input$cahVariables) && length(input$cahVariables) > 1)){
     analysisData$cah <- runCAH(baseData$data, input$cahVariables,
                                userDistance = input$cahDistance,
-                               userMethod = input$cahMethod) 
+                               userMethod = input$cahMethod,
+                               scale = input$cahNormalize) 
   }
 })
 

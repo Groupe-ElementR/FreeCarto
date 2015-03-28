@@ -5,8 +5,9 @@ source("CAH/A2R.R")
 analysisData <- reactiveValues(cah = NA, clusters = NA)
 
 
-runCAH <- function(df, columns, userDistance , userMethod) {
+runCAH <- function(df, columns, userDistance , userMethod, scale) {
   cahDF <- df[,columns]
+  if (scale){cahDF <- sapply(X = cahDF, FUN = function(x) {scale(x, center = TRUE, scale = TRUE)})}
   cah <- hclust(dist(cahDF, method = userDistance), method = userMethod)
   return(cah)
 }

@@ -3,11 +3,13 @@ output$cah <- renderUI ({
          column(width = 6,
                 selectInput(inputId = "cahVariables",
                             label = "Choose CAH variables",
-                            choices = colnames(isolate(baseData$data)),
+                            choices =  colnames(isolate(baseData$data)[, sapply(isolate(baseData$data), is.numeric)]),
                             multiple = TRUE)),
          column(width = 6,
                 sliderInput(inputId = "cahClusters",
                             label = "Number of clusters",min = 2, max = 10, value= 3)),
+         checkboxInput(inputId = "cahNormalize", label = "Normalize data ?", value = TRUE),
+         
          checkboxInput("cahSettings", "More settings"),
          conditionalPanel(
            condition = "input.cahSettings == true",
@@ -38,8 +40,8 @@ output$cah <- renderUI ({
            column(6, plotOutput(outputId = "cahTree")),
            column(6, plotOutput(outputId = "cahInertia"))),
          fluidRow(
-           column(10,plotOutput(outputId = "cahProfiles")),
-           column(2, checkboxInput(inputId = "cahScale", label = "Standardize", value = FALSE))
+           column(9, plotOutput(outputId = "cahProfiles")),
+           column(3, checkboxInput(inputId = "cahScale", label = "Standardize profiles display", value = FALSE))
          )
 )
 })
