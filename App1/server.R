@@ -16,12 +16,15 @@ shinyServer(function(input, output, session) {
   source("LM/lm_ui.R", local = TRUE, encoding = 'utf8')
   source("LM/lm_server.R", local = TRUE, encoding = 'utf8')
   
+  source("Pivot/pivot_ui.R", local = TRUE, encoding = 'utf8')
+  source("Pivot/pivot_server.R", local = TRUE, encoding = 'utf8')
+  
   output$fullDF <- renderDataTable({
     baseData$data
   })
   
   output$baseMap <- renderPlot({
-    sp::plot(baseData$spdf)
+    plot(baseData$spdf)
   })
 
 

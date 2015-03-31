@@ -9,8 +9,20 @@ shinyUI(fluidPage(
   tabsetPanel(
     tabPanel(title = "Accueil", icon = icon(name = "home")),
     tabPanel(title = "Données", icon = icon(name = "database"),
-             plotOutput('baseMap'),
-             dataTableOutput("fullDF")
+             tabsetPanel(
+               tabPanel(title = "Table",
+                        icon = icon(name = "table", lib = "font-awesome"),
+                        dataTableOutput("fullDF")
+               ),
+               tabPanel(title = "Base Map",
+                        icon = icon(name = "map-marker"),
+                        plotOutput("baseMap")
+               ),
+               tabPanel(title = "Pivot",
+                        icon = icon(name = "retweet"),
+                        uiOutput('pivot')
+               )
+             )
     ),
     tabPanel(title = "Carto",
              icon = icon(name = "picture-o"),
