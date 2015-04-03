@@ -5,11 +5,17 @@ export(LayoutMap)
 export(OSMMap)
 export(StaticMap)
 export(SymbolsMap)
+<<<<<<< HEAD
 export(discretization)
 export(display.gradient)
 export(display.palette)
 export(display.palette.all)
 export(palette)
+=======
+export(labelLayer)
+export(layoutLayer)
+export(staticLayer)
+>>>>>>> 4c76621dff499725d4eaeb20528b23e0d0f16570
 exportClasses(MapLayout)
 exportClasses(OSMLayer)
 exportClasses(PropSymbolsLayer)
