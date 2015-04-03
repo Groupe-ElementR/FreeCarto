@@ -6,7 +6,7 @@
 # LAST REVISION: oct 2014
 # ----------------------------------------------
 
-library ("maptools")
+#library ("maptools")
 
 # TODO TO IMPROVE
 # 
