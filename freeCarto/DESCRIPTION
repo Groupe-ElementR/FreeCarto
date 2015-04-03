@@ -6,8 +6,13 @@ Maintainer: T Giraud <timothee.giraud@ums-riate.fr>
 Description: Fricking description
 License: GPL (>=2.0)
 LazyData: true
-Imports: sp
-Depends: methods
-Suggests: OpenStreetMap, rgdal, knitr
+Imports:
+    sp
+Depends:
+    methods
+Suggests:
+    OpenStreetMap,
+    rgdal,
+    knitr
 Encoding: UTF-8
 VignetteBuilder: knitr
