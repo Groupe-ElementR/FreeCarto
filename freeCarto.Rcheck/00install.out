@@ -1,0 +1,10 @@
+* installing *source* package ‘freeCarto’ ...
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** preparing package for lazy loading
+Error in library("maptools") : there is no package called ‘maptools’
+Error : unable to load R code in package ‘freeCarto’
+ERROR: lazy loading failed for package ‘freeCarto’
+* removing ‘/mnt/data/depot/FreeCarto/freeCarto.Rcheck/freeCarto’
