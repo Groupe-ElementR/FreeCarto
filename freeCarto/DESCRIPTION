@@ -7,7 +7,7 @@ Description: Fricking description
 License: GPL (>=2.0)
 LazyData: true
 Imports:
-    sp
+    sp, classInt
 Depends:
     methods
 Suggests:

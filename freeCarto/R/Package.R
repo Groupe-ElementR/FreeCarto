@@ -118,4 +118,14 @@ NULL
 #' @docType data
 NULL
 
+#' @title color palettes
+#' @name colors
+#' @description Color gradients adapted to thematic cartography
+#' @usage data(colors)
+#' @format list
+#' @details xxx
+#' @source UMS RIATE
+#' @docType data
+NULL
+
 
