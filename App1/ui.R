@@ -30,6 +30,9 @@ shinyUI(fluidPage(
     tabPanel(title = "Analyse",
              icon = icon(name = "bar-chart"),
              tabsetPanel(
+               tabPanel(title = "Univarié",
+                        icon = icon(name = "tree"),
+                        uiOutput('uni')),
                tabPanel(title = "CAH",
                         icon = icon(name = "tree"),
                         uiOutput('cah')),
