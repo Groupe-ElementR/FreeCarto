@@ -61,6 +61,8 @@ observe({
 })
 
 observeEvent(input$cahAddColumn, {
-  newName <- paste(isolate(input$cahNamePrefix), isolate(input$cahClusters), "Clusters", sep = "_")
+  newName <- ifelse(isolate(input$cahNamePrefix) != "",
+                    paste(isolate(input$cahNamePrefix), isolate(input$cahClusters), "Clusters", sep = "_"),
+                    paste("CAH", isolate(input$cahClusters), "Clusters", sep = "_")) 
   baseData$data[[newName]] <- isolate(analysisData$clusters)
 })

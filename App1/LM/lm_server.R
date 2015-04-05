@@ -48,9 +48,37 @@ output$matcor <- renderText({
 # Add new variables (absolute and relative residuals)
 
 observeEvent(input$addregresid, {
-  absName <- paste(isolate(input$regprefix), "AbsResid", sep = "_")
-  relName <- paste(isolate(input$regprefix), "RelResid", sep = "_")
+  if (isolate(input$regprefix) != ""){
+    absName <- paste(isolate(input$regprefix), "AbsResid", sep = "_")
+    relName <- paste(isolate(input$regprefix), "RelResid", sep = "_")
+  } else {
+    absName <- paste("lm", "AbsResid", sep = "_")
+    relName <- paste("lm", "RelResid", sep = "_")
+  }
+  
   baseData$data[, c(absName, relName)] <- linMod()$TABRESID
 })
 
+
+# Updating variable list
+
+observe({
+  baseData$data
+  updateSelectInput(session = session, inputId = "regvardep",
+                    label = "Variable à expliquer",
+                    selected = isolate(input$regvardep),
+                    choices = colnames(baseData$data[, sapply(baseData$data, is.numeric)]))
+  updateSelectInput(session = session, inputId = "regvarindep",
+                    label = "Variable(s) explicative(s)",
+                    selected = isolate(input$regvarindep),
+                    choices = colnames(baseData$data[, sapply(baseData$data, is.numeric)]))
+  updateSelectInput(session = session, inputId = "regvary",
+                    label = "Graphique : variable Y",
+                    selected = isolate(input$regvary),
+                    choices = colnames(baseData$data[, sapply(baseData$data, is.numeric)]))
+  updateSelectInput(session = session, inputId = "regvarx",
+                    label = "Graphique : variable X",
+                    selected = isolate(input$regvarx),
+                    choices = colnames(baseData$data[, sapply(baseData$data, is.numeric)]))
+})
 

@@ -30,3 +30,17 @@ output$acpScatter <- renderPlot({
     plot.PCA(pcaData$acpRes, axes = as.integer(input$acpAxes), choix = "ind")
   }
 })
+
+# Update variable list
+observe({
+  baseData$data
+  updateSelectInput(session = session, inputId = "acpActives",
+                    label = "Choose PCA active variables",
+                    selected = isolate(input$acpActives),
+                    choices = colnames(isolate(baseData$data[, sapply(baseData$data, is.numeric)])))
+  updateSelectInput(session = session, inputId = "acpSup",
+                    label = "Choose PCA supplementary variables",
+                    selected = isolate(input$acpSup),
+                    choices = colnames(isolate(baseData$data)))
+  
+})

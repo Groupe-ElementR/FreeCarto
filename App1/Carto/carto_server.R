@@ -15,3 +15,11 @@ output$map <- renderPlot({
     #     , col = input$labelcol, cex = input$labelcex)
   }
 })
+
+observe({
+  baseData$data
+  updateSelectInput(session = session, inputId = "propVar",
+                    label = "Variable",
+                    selected = isolate(input$propVar),
+                    choices = colnames(baseData$data))
+})
