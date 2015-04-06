@@ -6,7 +6,17 @@
 drawGraph <- reactive({
   if (!is.null(input$uniquanti) & is.null(input$uniquali)){
     # quanti
-    ggplot(baseData$data) + geom_hist()
+    ggplot(baseData$data) + geom_histogram(aes(x = input$uniquanti), color = "white", fill = "grey30") +
+      scale_y_continuous("Fréquence") + theme_bw()
+    if (!is.na(input$binstep)){
+      ggplot(baseData$data) + geom_histogram(aes(x = input$uniquanti), color = "white", fill = "grey30", binwidth = input$binstep) +
+        scale_y_continuous("Fréquence") + theme_bw()
+    } else {
+      ggplot(baseData$data) + geom_histogram(aes(x = input$uniquanti), color = "white", fill = "grey30") +
+        scale_y_continuous("Fréquence") + theme_bw()
+    }
+    
+    
   } else if (is.null(input$uniquanti) & !is.null(input$uniquali)) {
     # quali
     ggplot(baseData$data) + geom_bar()
