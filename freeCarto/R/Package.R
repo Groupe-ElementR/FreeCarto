@@ -11,9 +11,7 @@
 #' @docType package
 NULL
 
-#### Import of usefull function from the methods package (needed to use S4)
-#' @importFrom methods setClass setGeneric setMethod setRefClass
-NULL
+
 
 
 #### Data Description

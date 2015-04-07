@@ -8,10 +8,9 @@ License: GPL (>=2.0)
 LazyData: true
 Imports:
     sp, classInt
-Depends:
-    methods
 Suggests:
     OpenStreetMap,
+    raster,
     rgdal,
     knitr
 Encoding: UTF-8
