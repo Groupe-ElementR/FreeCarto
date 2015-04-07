@@ -23,9 +23,11 @@ choroLayer(spdf, df, spdfid = NULL, dfid = NULL, var, distr = NULL,
 
 \item{col}{vector of colors}
 
-\item{nbclass}{number of classes targeted (if null, the Huntsberger method is used)}
+\item{nbclass}{number of classes targeted (if null,
+the Huntsberger method is used)}
 
-\item{method}{discretization method ("sd", "equal", "quantile", "jenks","q6","geom")}
+\item{method}{discretization method ("sd", "equal",
+"quantile", "jenks","q6","geom")}
 
 \item{pal1}{color palette 1}
 
@@ -36,8 +38,6 @@ choroLayer(spdf, df, spdfid = NULL, dfid = NULL, var, distr = NULL,
 \item{alpha}{alphaeffect enhancing contrasts with opacity}
 
 \item{add}{add=T}
-
-\item{method}{methods of discretisation : "sd", "equal", "quantile", "jenks", "geom", "q6"}
 }
 \value{
 plot
@@ -49,6 +49,8 @@ plot a chorpoleth layer
 plot a chorpoleth layer
 }
 \examples{
-choroLayer(spdf = TNdeleg.spdf, df = TNdeleg, var =  "housing", nbclass = 20, pal1="red.pal",pal2="green.pal",breakval=10000,method = "equal",add=FALSE,alpha=TRUE)
+choroLayer(spdf = TNdeleg.spdf, df = TNdeleg, var =  "housing", nbclass = 20,
+pal1="red.pal",pal2="green.pal",breakval=10000,method = "equal",add=FALSE,
+alpha=TRUE)
 }
 

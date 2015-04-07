@@ -34,18 +34,18 @@ propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "c
   y2 <- sp::bbox(spdf)[4]
   hfdc <- (x2-x1)
   sfdc <- (x2-x1)*(y2-y1)
-  sc <- sum(dots[,var],na.rm=TRUE)
+  sc <- sum(abs(dots[,var]),na.rm = TRUE)
 
   if (fixmax == FALSE){
-    dots$circleSize <- sqrt((dots[,var] * k * sfdc / sc) / pi) # surface des cercles
-    dots$squareSize <-  sqrt(dots[,var] * k * sfdc / sc) # surface des carrés
-    dots$heightSize <- dots[,var] * k * hfdc / sc * 10 # Hauteur des barres
+    dots$circleSize <- sqrt((abs(dots[,var]) * k * sfdc / sc) / pi) # surface des cercles
+    dots$squareSize <-  sqrt(abs(dots[,var]) * k * sfdc / sc) # surface des carrés
+    dots$heightSize <- abs(dots[,var]) * k * hfdc / sc * 10 # Hauteur des barres
   }
 
   if (fixmax == TRUE){
-    dots$circleSize <- sqrt((dots[, var] * k) / pi) # surface des cercles
-    dots$squareSize <-  sqrt(dots[, var] * k ) # surface des carrés
-    dots$heightSize <- dots[, var] * k * 10 # Hauteur des barres
+    dots$circleSize <- sqrt((abs(dots[, var]) * k) / pi) # surface des cercles
+    dots$squareSize <-  sqrt(abs(dots[, var]) * k ) # surface des carrés
+    dots$heightSize <- abs(dots[, var]) * k * 10 # Hauteur des barres
   }
 
   dots$var2 <- ifelse(dots[, var] >= breakval,"sup","inf")

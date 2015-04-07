@@ -34,8 +34,6 @@ choro(spdf, df, spdfid = NULL, dfid = NULL, var, distr = NULL,
 \item{breakval}{Diverging value}
 
 \item{alpha}{alphaeffect enhancing contrasts with opacity}
-
-\item{method}{methods of discretisation : "sd", "equal", "quantile", "jenks", "geom", "q6"}
 }
 \value{
 list

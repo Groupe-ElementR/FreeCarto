@@ -41,7 +41,7 @@ choro <- function(spdf, df, spdfid = NULL, dfid = NULL, var, distr=NULL, col = N
 
   # Discretization
   if (is.null(distr)){
-    field <- spdf@data[,"housing"]
+    field <- spdf@data[,var]
     distr <- discretization(v=field,nbclass=nbclass,method=method)
   }
 
