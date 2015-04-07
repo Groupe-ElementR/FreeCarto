@@ -1,37 +1,38 @@
 # Linear model ----
 
 
-# Compute linear regression
+# Draw univariate plot
 
-drawGraph <- reactive({
+output$uniplot <- renderPlot({
   if (!is.null(input$uniquanti) & is.null(input$uniquali)){
     # quanti
     if (!is.na(input$binstep)){
-      pHist <- ggplot(baseData$data) + geom_histogram(aes(x = input$uniquanti), color = "white", fill = "grey30", binwidth = input$binstep) +
+      pUni <- ggplot(baseData$data) + geom_histogram(aes(x = input$uniquanti), color = "white", fill = "grey30", binwidth = input$binstep) +
         scale_y_continuous("Fréquence") + theme_bw()
+      if (isTRUE(input$drawsummary)){
+        pUni <- pUni + 
+          geom_vline(xintercept = mean(baseData$data[, input$uniquanti], na.rm = TRUE), color = "chocolate4") +
+          geom_vline(xintercept = quantile(baseData$data[, input$uniquanti], probs = seq(0, 1, 0.25), na.rm = TRUE), color = "chartreuse4")
+      }
     } else {
-      ggplot(baseData$data) + geom_histogram(aes(x = input$uniquanti), color = "white", fill = "grey30") +
+      pUni <- ggplot(baseData$data) + geom_histogram(aes(x = input$uniquanti), color = "white", fill = "grey30") +
         scale_y_continuous("Fréquence") + theme_bw()
+      if (isTRUE(input$drawsummary)){
+        pUni <- pUni + 
+          geom_vline(xintercept = mean(baseData$data[, input$uniquanti], na.rm = TRUE), color = "chocolate4") +
+          geom_vline(xintercept = quantile(baseData$data[, input$uniquanti], probs = seq(0, 1, 0.25), na.rm = TRUE), color = "chartreuse4")
+      }
     }
-    
-    
+ 
   } else if (is.null(input$uniquanti) & !is.null(input$uniquali)) {
     # quali
-    ggplot(baseData$data) + geom_bar()
+    pUni <- ggplot(baseData$data) + geom_bar(baseData$data[, input$uniquanti], color = "white", fill = "grey30") +
+      scale_y_continuous("Fréquence") + theme_bw()
+    
   } else if (!is.null(input$uniquanti) & !is.null(input$uniquali)) {
     # quali-quanti
-    ggplot(baseData$data) + geom_boxplot()
-  } else {
-    return()
-  }
-})
-
-
-# Print scatter plot
-
-output$scatterplot <- renderPlot({
-  if (!is.null(input$regvarx) & !is.null(input$regvary)){
-    ScatterPlot(df = baseData$data, varx = input$regvarx, vary = input$regvary)
+    pUni <- ggplot(baseData$data) + geom_boxplot(aes(x = input$uniquali, y = input$uniquanti), color = "grey30", fill = "grey70") +
+      theme_bw()
   } else {
     return()
   }
@@ -57,21 +58,6 @@ output$matcor <- renderText({
   } else {
     return()
   }
-})
-
-
-# Add new variables (absolute and relative residuals)
-
-observeEvent(input$addregresid, {
-  if (isolate(input$regprefix) != ""){
-    absName <- paste(isolate(input$regprefix), "AbsResid", sep = "_")
-    relName <- paste(isolate(input$regprefix), "RelResid", sep = "_")
-  } else {
-    absName <- paste("lm", "AbsResid", sep = "_")
-    relName <- paste("lm", "RelResid", sep = "_")
-  }
-  
-  baseData$data[, c(absName, relName)] <- linMod()$TABRESID
 })
 
 

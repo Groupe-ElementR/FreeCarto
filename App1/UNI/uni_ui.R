@@ -18,7 +18,7 @@ output$uni <- renderUI({
     )),
     column(6, 
            tags$h4("Résumé graphique"),
-           plotOutput("scatterplot")
+           plotOutput("uniplot")
     ),
     column(3,
            tags$h4("Résumé numérique"),
