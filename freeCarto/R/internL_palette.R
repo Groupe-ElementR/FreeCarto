@@ -11,7 +11,7 @@
 #' @param pal2 name of a second color gradiant (optionnal)
 #' @param n2 number of colors for the second color gradiant (up to 20) (optionnal)
 #' @param middle boolean. if true, add a neutral color in the middle (optionnal)
-#' @param #aplhaeffect boolean. If true, enhance contrasts by adding opacity (optionnal)
+#' @param alphaeffect boolean. If true, enhance contrasts by adding opacity (optionnal)
 #'
 #' @examples
 #' # Simple gradient in blue

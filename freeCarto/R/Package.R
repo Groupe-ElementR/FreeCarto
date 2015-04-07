@@ -4,11 +4,9 @@
 #' @name freeCarto
 #' @description This package contains various functions.
 #' \itemize{
-#' \item{\code{\link{LayoutMap}} to make a nice frame around a map}
-#' \item{\code{\link{StaticMap}} to add layers on a map}
-#' \item{\code{\link{LabelMap}} to add labels on a map}
-#' \item{\code{\link{OSMMap}} to add an OSM layer on a map}
-#' \item{\code{\link{SymbolsMap}} to add a symbols layer on a map}
+#' \item{\code{\link{layoutLayer}} to make a nice frame around a map}
+#' \item{\code{\link{staticLayer}} to add layers on a map}
+#' \item{\code{\link{labelLayer}} to add labels on a map}
 #' }
 #' @docType package
 NULL

@@ -18,7 +18,7 @@ palette(pal1, n1, pal2 = NULL, n2 = NULL, middle = FALSE,
 
 \item{middle}{boolean. if true, add a neutral color in the middle (optionnal)}
 
-\item{#aplhaeffect}{boolean. If true, enhance contrasts by adding opacity (optionnal)}
+\item{alphaeffect}{boolean. If true, enhance contrasts by adding opacity (optionnal)}
 }
 \value{
 vector

@@ -9,17 +9,11 @@
 #' @param scale Size of the scale
 #' @param frame Wheither displaying a frame or not
 #' @param col Color of the frame
-#' @param coltxt Color of the Title
+#' @param coltitle Color of the Title
 #' @param north Noth arrow
 #' @export
 #' @examples
 #' data("TNdeleg")
-#' StaticMap(obj = TNdeleg.spdf)
-#' LabelMap(obj = TNdeleg.spdf, data = TNdeleg, cex = 0.4)
-#' LayoutMap(title = "Hell Yeah!", sources = "Sources Inconnues",
-#'          author = "Mister T",scale = 150, frame = TRUE, north = TRUE )
-
-
 layoutLayer <- function(title = "Title of the map, year",
                       sources = "Source(s)", author = "Author(s)",
                       col = "black", coltitle = "white",

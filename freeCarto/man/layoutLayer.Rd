@@ -17,13 +17,13 @@ layoutLayer(title = "Title of the map, year", sources = "Source(s)",
 
 \item{col}{Color of the frame}
 
+\item{coltitle}{Color of the Title}
+
 \item{scale}{Size of the scale}
 
 \item{frame}{Wheither displaying a frame or not}
 
 \item{north}{Noth arrow}
-
-\item{coltxt}{Color of the Title}
 }
 \description{
 layoutLayer function.
@@ -33,9 +33,5 @@ Must only be called after a plot
 }
 \examples{
 data("TNdeleg")
-StaticMap(obj = TNdeleg.spdf)
-LabelMap(obj = TNdeleg.spdf, data = TNdeleg, cex = 0.4)
-LayoutMap(title = "Hell Yeah!", sources = "Sources Inconnues",
-         author = "Mister T",scale = 150, frame = TRUE, north = TRUE )
 }
 
