@@ -62,7 +62,6 @@ propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "c
     sizevect <- dots$circleSize
     varvect <- dots[,var]
   }
-  ?plot.window
 
   # SQUARES
   if (symbols == "squares"){
@@ -88,6 +87,10 @@ propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "c
 
 
 }
+
+
+
+
 
 propSymbolsLegendLayer <- function(pos = pos, title = title, varname = var,
                                    sizevect = sizevect, varvect = varvect,

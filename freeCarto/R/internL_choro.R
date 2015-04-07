@@ -21,13 +21,12 @@
 #' @param pal2 color palette 2
 #' @param breakval Diverging value
 #' @param alpha alphaeffect enhancing contrasts with opacity
-#' @param method methods of discretisation : "sd", "equal", "quantile", "jenks", "geom", "q6"
 #'
 #' @examples
 #' # xxx
 #'
 #' @return list
-#' @export
+
 
 choro <- function(spdf, df, spdfid = NULL, dfid = NULL, var, distr=NULL, col = NULL, nbclass=NULL, method="quantile", pal1 = "blue.pal", pal2 = "green.pal", breakval = NULL, alpha = FALSE)
   {
