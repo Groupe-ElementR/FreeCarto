@@ -29,11 +29,11 @@
 
 choroLayer <- function(spdf, df, spdfid = NULL, dfid = NULL, var, distr=NULL,
                        col = NULL, nbclass=NULL, method="quantile",
-                       pal1 = "blue.pal", pal2 = "green.pal", breakval = NULL,
-                       alpha = FALSE,add=T)
+                       pal1 = "blue.pal", pal2 = "green.pal", breakval = 0,
+                       alpha = FALSE, add=F)
 {
 
-  layer <- choro(spdf=spdf, df=df, spdfid = spdfid, dfid = dfid, var=var, distr=distr, col = col, nbclass=nbclass, method=method, pal1 = pal1, pal2 = pal2, breakval = breakval, alpha = alpha)
+  layer <- choro(spdf=spdf, df=df, spdfid = spdfid, dfid = dfid, var=var, distr=distr, col = col, pal1 = pal1, pal2 = pal2, nbclass=nbclass, method=method, breakval = breakval, alpha = alpha)
 
   # poly
   plot(layer$spdf, col=as.vector(layer$spdf@data$colMap),border="black",lwd=1,add=add)

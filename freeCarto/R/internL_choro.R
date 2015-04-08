@@ -28,7 +28,7 @@
 #' @return list
 
 
-choro <- function(spdf, df, spdfid = NULL, dfid = NULL, var, distr=NULL, col = NULL, nbclass=NULL, method="quantile", pal1 = "blue.pal", pal2 = "green.pal", breakval = NULL, alpha = FALSE)
+choro <- function(spdf, df, spdfid = NULL, dfid = NULL, var, distr=NULL, col = NULL, nbclass=NULL, method="quantile", pal1 = "blue.pal", pal2 = "green.pal", breakval = 0, alpha = FALSE)
   {
 
   # If ids undefined, the first column is chosen

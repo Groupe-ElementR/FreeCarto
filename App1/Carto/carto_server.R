@@ -20,17 +20,17 @@ output$map <- renderPlot({
   par(mar=c(0,0,1.2,0))
   if (input$mapType == "choro"){
 
-    choroLayer(spdf = baseData$spdf, add = FALSE, df = baseData$data, var = input$var, 
-               nbclass = 4, method = "equal", breakval=0, spdfid = "INSEE_COM"  )
+    choroLayer(spdf = baseData$spdf, add = FALSE, df = baseData$data, var = input$var,
+               nbclass = 10, method = "quantile", spdfid = "INSEE_COM", breakval=0  )
     #             border = input$couleurBorder, lwd = input$epaisseurBorder)
   }
   if(input$mapType == "symbols"){
       staticLayer(spdf = baseData$spdf, add = FALSE,col = "grey50",
                 border = "white", lwd = 0.75)
-      propSymbolsLayer(spdf = baseData$spdf, add = TRUE, df = baseData$data, var = input$var2,spdfid="INSEE_COM") 
+      propSymbolsLayer(spdf = baseData$spdf, add = TRUE, df = baseData$data, var = input$var2,spdfid="INSEE_COM")
   }
-  
-  
+
+
 })
 
 
