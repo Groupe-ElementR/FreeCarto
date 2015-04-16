@@ -8,23 +8,17 @@
 #' @examples
 #' data("TNdeleg")
 getOSMLayer <- function(spdf, type = "osm", zoom = NULL){
+  if (!requireNamespace("rgdal", quietly = TRUE)) {
+    stop("'rgdal' package needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
   if (!requireNamespace("OpenStreetMap", quietly = TRUE)) {
     stop("'OpenStreetMap' package needed for this function to work. Please install it.",
          call. = FALSE)
   }
   if(!'package:OpenStreetMap' %in% search()){
-    attachNamespace('OpenStreetMap')
-  }
-  if(!'package:sp' %in% search()){
-    attachNamespace('sp')
-  }
-
-  if(!'package:raster' %in% search()){
     attachNamespace('raster')
-  }
-  if (!requireNamespace("rgdal", quietly = TRUE)) {
-    stop("'rgdal' package needed for this function to work. Please install it.",
-         call. = FALSE)
+    attachNamespace('OpenStreetMap')
   }
   if (is.na(sp::proj4string(spdf))){
     stop("The Spatial object must contain information on its projection.",
@@ -51,6 +45,8 @@ getOSMLayer <- function(spdf, type = "osm", zoom = NULL){
                                       type = type)
   }
   finalOSM <- OpenStreetMap::openproj(x = tempOSM, projection = sp::CRS(sp::proj4string(spdf)))
+  detach(name = package:raster)
+  detach(name = package:OpenStreetMap)
   # plot(finalOSM, removeMargin = F)
   return(finalOSM)
 }
@@ -60,10 +56,13 @@ getOSMLayer <- function(spdf, type = "osm", zoom = NULL){
 #' @param add Whether to add the layer to an existing map (TRUE) or not (FALSE)
 #' @details This function is a wrapper for plot.OpenStreetMap
 #' @export
-#' @import sp
 #' @examples
 #' data("TNdeleg")
 osmLayer <- function(x, add = FALSE){
+  if (!requireNamespace("OpenStreetMap", quietly = TRUE)) {
+    stop("'OpenStreetMap' package needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
   OpenStreetMap::plot.OpenStreetMap(x, add = add, removeMargin = FALSE)
 }
 
