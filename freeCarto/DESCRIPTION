@@ -7,8 +7,11 @@ Description: Fricking description
 License: GPL (>=2.0)
 LazyData: true
 Imports:
-    sp, classInt
+    sp,
+    classInt,
+    reshape2
 Suggests:
+    rgeos,
     OpenStreetMap,
     raster,
     rgdal,

@@ -6,7 +6,7 @@
 \usage{
 choro(spdf, df, spdfid = NULL, dfid = NULL, var, distr = NULL,
   col = NULL, nbclass = NULL, method = "quantile", pal1 = "blue.pal",
-  pal2 = "green.pal", breakval = NULL, alpha = FALSE)
+  pal2 = "green.pal", breakval = 0, alpha = FALSE)
 }
 \arguments{
 \item{spdf}{spatial dataframe (geometries)}
