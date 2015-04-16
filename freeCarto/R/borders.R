@@ -8,26 +8,12 @@
 #' @import sp
 #' @import reshape2
 #' @examples
-#' contig <-borders(spdf=FRdep.spdf)
-#' plot(FRdep.spdf,lwd=0.2)
-#' plot(contig,col="red",lwd=0.4,add=TRUE)
+#' data(nuts2006)
+#' plot(nuts0.spdf ,col="#CCCCCC",border="white",lwd=1)
+#' contig <-borders(spdf=nuts0.spdf)
+#' plot(contig,col="red",lwd=2,add=TRUE)
 #' @return SpatialLinesDataFrame
 #' @export
-#
-# FRdep2 <- FRdep.spdf[1:10,]
-# plot(FRdep2)
-# contig <-borders(spdf=FRdep2)
-# head(FRdep2@data)
-# FRdep2@data$dep_code
-
-# exemple
-# library("rgdal")
-# library("reshape2")
-# load('/home/nlambert/Documents/R/github/FreeCarto/freeCarto/data/FRdep.rda')
-# contig <-borders(spdf=FRdep.spdf)
-# plot(FRdep.spdf,lwd=0.2)
-# plot(contig,col="red",lwd=0.4,ad=TRUE)
-
 
 borders <- function(spdf, tol=1,id=NULL){
 
@@ -36,7 +22,6 @@ borders <- function(spdf, tol=1,id=NULL){
          call. = FALSE)
   }
   if(!'package:rgeos' %in% search()){
-    attachNamespace('sp')
     attachNamespace('rgeos')
   }
   if (is.null(id)){id <- names(spdf@data)[1]}

@@ -8,9 +8,6 @@
 \source{
 UMS RIATE
 }
-\usage{
-data(colors)
-}
 \description{
 Color gradients adapted to thematic cartography
 }

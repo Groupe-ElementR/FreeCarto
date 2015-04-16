@@ -23,8 +23,9 @@ between polygons
 Extract borders from a SpatialPolygonsDataFrame
 }
 \examples{
-contig <-borders(spdf=FRdep.spdf)
-plot(FRdep.spdf,lwd=0.2)
-plot(contig,col="red",lwd=0.4,add=TRUE)
+data(nuts2006)
+plot(nuts0.spdf ,col="#CCCCCC",border="white",lwd=1)
+contig <-borders(spdf=nuts0.spdf)
+plot(contig,col="red",lwd=2,add=TRUE)
 }
 

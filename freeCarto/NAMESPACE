@@ -2,6 +2,7 @@
 
 export(borders)
 export(choroLayer)
+export(discLayer)
 export(discretization)
 export(display.gradient)
 export(display.palette)
