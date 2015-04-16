@@ -124,4 +124,161 @@ NULL
 #' @docType data
 NULL
 
+#' @title Nuts regions (level 3)
+#' @name nuts3.spdf
+#' @description Delineations of EU administrative units (level 3, 2006 version)
+#' @usage data(nuts3.spdf)
+#' @format This basemap is a SpatialPolygonsDataFrame.
+#' @details This SpatialPolygonsDataFrame can be used with the dataframe nuts3.df
+#' The projection used is Lambert azimuthal equal-area projection (EPSG:3035).
+#' @field id Unique nuts id (character)
+#' @field name Official name of the administrative unit
+#' @source UMS RIATE
+#' @docType data
+NULL
 
+#' @title Nuts regions (level 2)
+#' @name nuts2.spdf
+#' @description Delineations of EU administrative units (level 2, 2006 version)
+#' @usage data(nuts2.spdf)
+#' @format This basemap is a SpatialPolygonsDataFrame.
+#' @details This SpatialPolygonsDataFrame can be used with the dataframe nuts2.df
+#' The projection used is Lambert azimuthal equal-area projection (EPSG:3035).
+#' @field id Unique nuts id (character)
+#' @field name Official name of the administrative unit
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Nuts regions (level 1)
+#' @name nuts1.spdf
+#' @description Delineations of EU administrative units (level 1, 2006 version)
+#' @usage data(nuts1.spdf)
+#' @format This basemap is a SpatialPolygonsDataFrame.
+#' @details This SpatialPolygonsDataFrame can be used with the dataframe nuts1.df
+#' The projection used is Lambert azimuthal equal-area projection (EPSG:3035).
+#' @field Unique nuts id (character)
+#' @field name Official name of the administrative unit
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Nuts regions (level 0)
+#' @name nuts0.spdf
+#' @description Delineations of EU administrative units (level 0, 2006 version)
+#' @usage data(nuts0.spdf)
+#' @format This basemap is a SpatialPolygonsDataFrame.
+#' @details This SpatialPolygonsDataFrame can be used with the dataframe nuts0.df
+#' The projection used is Lambert azimuthal equal-area projection (EPSG:3035).
+#' @field id Unique nuts id (character)
+#' @field name Official name of the administrative unit
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Nuts0 dataset
+#' @name nuts0.df
+#' @description This dataset contains some socio-economic data
+#' @usage data(nuts0.df)
+#' @format This data.frame has 80 rows and 10 columns.
+#' @details This DataFrame can be used with the SpatialPolygonsDataFrame nuts0.spdf
+#' @field id Unique nuts id (character)
+#' @field emp2008 Active population in employment in 2008 (thousands persons) (numeric)
+#' @field act2008 Active population in 2008 (thousands persons) (numeric)
+#' @field unemp2008 Active population unemployed in 2008 (thousands persons) (numeric)
+#' @field birth_2008 Number of birth in 2008 (live birth) (numeric)
+#' @field death_2008 Number of death in 2008 (death) (numeric)
+#' @field gdppps1999 Gross domestic product (Purchasing Power Standards) in 1999 (million euros) (numeric)
+#' @field gdppps2008 Gross domestic product (Purchasing Power Standards) in 2008 (million euros) (numeric)
+#' @field pop1999 Total population in 1999 (inhabitants) (numeric)
+#' @field pop2008 Total population in 2008 (inhabitants) (numeric)
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Nuts1 dataset
+#' @name nuts1.df
+#' @description This dataset contains some socio-economic data
+#' @usage data(nuts1.df)
+#' @format This data.frame has 161 rows and 10 columns.
+#' @details This DataFrame can be used with the SpatialPolygonsDataFrame nuts1.spdf
+#' @field id Unique nuts id (character)
+#' @field emp2008 Active population in employment in 2008 (thousands persons) (numeric)
+#' @field act2008 Active population in 2008 (thousands persons) (numeric)
+#' @field unemp2008 Active population unemployed in 2008 (thousands persons) (numeric)
+#' @field birth_2008 Number of birth in 2008 (live birth) (numeric)
+#' @field death_2008 Number of death in 2008 (death) (numeric)
+#' @field gdppps1999 Gross domestic product (Purchasing Power Standards) in 1999 (million euros) (numeric)
+#' @field gdppps2008 Gross domestic product (Purchasing Power Standards) in 2008 (million euros) (numeric)
+#' @field pop1999 Total population in 1999 (inhabitants) (numeric)
+#' @field pop2008 Total population in 2008 (inhabitants) (numeric)
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Nuts2 dataset
+#' @name nuts2.df
+#' @description This dataset contains some socio-economic data
+#' @usage data(nuts2.df)
+#' @format This data.frame has 355 rows and 10 columns.
+#' @details This DataFrame can be used with the SpatialPolygonsDataFrame nuts2.spdf
+#' @field id Unique nuts id (character)
+#' @field emp2008 Active population in employment in 2008 (thousands persons) (numeric)
+#' @field act2008 Active population in 2008 (thousands persons) (numeric)
+#' @field unemp2008 Active population unemployed in 2008 (thousands persons) (numeric)
+#' @field birth_2008 Number of birth in 2008 (live birth) (numeric)
+#' @field death_2008 Number of death in 2008 (death) (numeric)
+#' @field gdppps1999 Gross domestic product (Purchasing Power Standards) in 1999 (million euros) (numeric)
+#' @field gdppps2008 Gross domestic product (Purchasing Power Standards) in 2008 (million euros) (numeric)
+#' @field pop1999 Total population in 1999 (inhabitants) (numeric)
+#' @field pop2008 Total population in 2008 (inhabitants) (numeric)
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Nuts3 dataset
+#' @name nuts3.df
+#' @description This dataset contains some socio-economic data
+#' @usage data(nuts3.df)
+#' @format This data.frame has 1482 rows and 7 columns.
+#' @details This DataFrame can be used with the SpatialPolygonsDataFrame nuts3.spdf
+#' @field id Unique nuts id (character)
+#' @field birth_2008 Number of birth in 2008 (live birth) (numeric)
+#' @field death_2008 Number of death in 2008 (death) (numeric)
+#' @field gdppps1999 Gross domestic product (Purchasing Power Standards) in 1999 (million euros) (numeric)
+#' @field gdppps2008 Gross domestic product (Purchasing Power Standards) in 2008 (million euros) (numeric)
+#' @field pop1999 Total population in 1999 (inhabitants) (numeric)
+#' @field pop2008 Total population in 2008 (inhabitants) (numeric)
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Coastline
+#' @name coasts.spdf
+#' @description Coastline
+#' @usage data(coasts.spdf)
+#' @format This basemap is a SpatialLinesDataFrame.
+#' @details The projection used is Lambert azimuthal equal-area projection (EPSG:3035)
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Frame
+#' @name frame.spdf
+#' @description Frame
+#' @usage data(frame.spdf)
+#' @format This basemap is a SpatialPolygonsDataFrame.
+#' @details The projection used is Lambert azimuthal equal-area projection (EPSG:3035)
+#' @source UMS RIATE
+#' @docType data
+NULL
+
+#' @title Graticule
+#' @name graticule.spdf
+#' @description Graticule
+#' @usage data(graticule.spdf)
+#' @format This basemap is a SpatialLinesDataFrame.
+#' @details The projection used is Lambert azimuthal equal-area projection (EPSG:3035)
+#' @source UMS RIATE
+#' @docType data
+NULL
