@@ -2,6 +2,7 @@
 
 export(borders)
 export(carroyage)
+export(chinesehatsLayer)
 export(choroLayer)
 export(discLayer)
 export(discretization)
