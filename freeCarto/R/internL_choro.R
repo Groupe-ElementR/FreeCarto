@@ -65,7 +65,7 @@ choro <- function(spdf, df, spdfid = NULL, dfid = NULL, var, distr=NULL, col = N
       num2 <- 0
       for(i in 1:length(bornes)){if(bornes[i]<=breakval){num1 <- num1 + 1}}
       for(i in 1:length(bornes)){if(bornes[i]>=breakval){num2 <- num2 + 1}}
-      col <- palette(pal1,num1,pal2,num2,middle=middle,alphaeffect=alpha)
+      col <- carto.pal(pal1,num1,pal2,num2,middle=middle,alphaeffect=alpha)
     }
   }
 
