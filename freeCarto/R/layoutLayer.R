@@ -11,13 +11,14 @@
 #' @param col Color of the frame
 #' @param coltitle Color of the Title
 #' @param north Noth arrow
+#' @param north South arrow
 #' @export
 #' @examples
 #' data("TNdeleg")
 layoutLayer <- function(title = "Title of the map, year",
                       sources = "Source(s)", author = "Author(s)",
                       col = "black", coltitle = "white",
-                      scale = 0, frame = TRUE, north = FALSE){
+                      scale = 0, frame = TRUE, north = FALSE, south = FALSE){
   mapExtent <- par()$usr
   x1 <- mapExtent[1]
   x2 <- mapExtent[2]
@@ -47,12 +48,24 @@ layoutLayer <- function(title = "Title of the map, year",
 
   # NORTH
   if(north==T){
-    xarrow<-x2-delta*1.5;yarrow<- y2-delta*2
+    xarrow<-x2-delta*1.5
+    yarrow <- y2-delta*2
     xx <- c(xarrow,xarrow+delta/2,xarrow+delta*1)
     yy <- c(yarrow,yarrow+delta*1.5,yarrow)
     polygon(xx, yy, col = "#DDDDDD", border = "#DDDDDD")
     text(xarrow+delta*.5,yarrow,"N",adj=c(0.5,1.5),cex=0.8,font=2,col="#DDDDDD")
   }
+
+  if(south==T){
+    xarrow <- x2 - delta * 1.5
+    yarrow <- y2 - delta * 2
+    xx <- c(xarrow, xarrow + delta / 2, xarrow + delta * 1)
+    yy <- c(yarrow, yarrow - delta * 1.5, yarrow)
+    polygon(xx, yy, col = "#DDDDDD", border = "#DDDDDD")
+    text(xarrow + delta * .5 , yarrow + delta * 2, "S", adj=c(0.5,1.5), cex=0.8, font=2,
+         col="#DDDDDD")
+  }
+
 
   # TITLE
   size<-0.8
