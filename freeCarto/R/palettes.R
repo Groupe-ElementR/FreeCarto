@@ -27,7 +27,8 @@
 #' # Build and display a palette
 #' mypal <- carto.pal(pal1="blue.pal",n1=5,pal2="red.pal",n2=15,middle=TRUE,alphaeffect=TRUE)
 #' k<-length(mypal)
-#' image(1:k, 1, as.matrix(1:k), col =mypal, xlab = paste(k," classes",sep=""), ylab = "", xaxt = "n", yaxt = "n",bty = "n")
+#' image(1:k, 1, as.matrix(1:k), col =mypal, xlab = paste(k," classes",sep=""),
+#' ylab = "", xaxt = "n", yaxt = "n",bty = "n")
 #'
 #' @return vector
 #'
@@ -110,11 +111,12 @@ display.carto.all<-function(nb=10)
 
   ncol <- 2
   nrow <- round(nbpal/ncol+0.1)
-
+  old.par <- par(no.readonly = TRUE)
   par(mfrow=c(nrow,ncol))
   par(mar=c(0.2, 0.2, 1, 0.2), xaxs='i', yaxs='i')
+
   for ( i in 1:nbpal) {
-  #  i <- 1
+    #  i <- 1
     pal <- names(colors)[i]
     mypal <- carto.pal(pal,nb)
     k<-length(mypal)
@@ -123,7 +125,7 @@ display.carto.all<-function(nb=10)
 
 
   }
-  par(mfrow=c(1,1))
+  par(old.par)
 }
 
 
@@ -145,6 +147,7 @@ display.carto.all<-function(nb=10)
 
 display.carto.pal<-function(name)
 {
+  old.par <- par(no.readonly = TRUE)
   par(mfrow=c(5,4))
   par(mar=c(0.2, 0.2, 1, 0.2), xaxs='i', yaxs='i')
   for ( i in 1:20) {
@@ -155,5 +158,5 @@ display.carto.pal<-function(name)
     if (i==1){cl <- "classe"}else{cl <- "classes"}
     title(paste(i,cl,sep=" "))
   }
-  par(mfrow=c(1,1))
+  par(old.par)
 }

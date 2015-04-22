@@ -13,36 +13,30 @@
 #' the Huntsberger method is used)
 #' @param method discretization method ("sd", "equal",
 #' "quantile", "jenks","q6","geom")
-#' @param pal1 color palette 1
-#' @param pal2 color palette 2
-#' @param breakval Diverging value
-#' @param alpha alphaeffect enhancing contrasts with opacity
-#' @param add add=T
-#'
+#' @param add add = T
 #' @examples
 #' choroLayer(spdf = TNdeleg.spdf, df = TNdeleg, var =  "housing", nbclass = 20,
-#' pal1="red.pal",pal2="green.pal",breakval=10000,method = "equal",add=FALSE,
-#' alpha=TRUE)
-#'
+#' method = "equal",add=FALSE)
 #' @return plot
 #' @export
-
-choroLayer <- function(spdf, df, spdfid = NULL, dfid = NULL, var, distr=NULL,
-                       col = NULL, nbclass=NULL, method="quantile",
-                       pal1 = "blue.pal", pal2 = "green.pal", breakval = 0,
-                       alpha = FALSE, add=F)
+choroLayer <- function(spdf, df, spdfid = NULL, dfid = NULL, var, distr = NULL,
+                       col = NULL, nbclass = NULL, method = "quantile",
+                       add = FALSE)
 {
+  if (is.null(spdfid)){spdfid <- names(spdf@data)[1]}
+  if (is.null(dfid)){dfid<-names(df)[1]}
 
-  layer <- choro(spdf=spdf, df=df, spdfid = spdfid, dfid = dfid, var=var, distr=distr, col = col, pal1 = pal1, pal2 = pal2, nbclass=nbclass, method=method, breakval = breakval, alpha = alpha)
-
+  # Join
+  spdf@data <- data.frame(spdf@data, df[match(spdf@data[,spdfid], df[,dfid]),])
+# get the colors and distr
+  layer <- choro(var=spdf@data[,var], distr = distr, col = col,
+                 nbclass = nbclass, method = method)
   # poly
-  plot(layer$spdf, col=as.vector(layer$spdf@data$colMap),border="black",lwd=1,add=add)
+  plot(spdf, col = as.vector(layer$colMap),
+       border = "black", lwd = 1, add = add)
 
   # lines (todo)
-
   # dots (todo)
-
-
 }
 
 

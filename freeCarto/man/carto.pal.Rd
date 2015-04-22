@@ -48,6 +48,7 @@ carto.pal(pal1="blue.pal",n1=5,pal2="red.pal",n2=15,middle=TRUE,alphaeffect=TRUE
 # Build and display a palette
 mypal <- carto.pal(pal1="blue.pal",n1=5,pal2="red.pal",n2=15,middle=TRUE,alphaeffect=TRUE)
 k<-length(mypal)
-image(1:k, 1, as.matrix(1:k), col =mypal, xlab = paste(k," classes",sep=""), ylab = "", xaxt = "n", yaxt = "n",bty = "n")
+image(1:k, 1, as.matrix(1:k), col =mypal, xlab = paste(k," classes",sep=""),
+ylab = "", xaxt = "n", yaxt = "n",bty = "n")
 }
 

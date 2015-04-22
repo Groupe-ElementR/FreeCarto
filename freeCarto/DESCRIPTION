@@ -1,12 +1,13 @@
 Package: freeCarto
-Title: What the Package Does (Title Case)
+Title: Wot Da Pack Do
 Version: 0.1
 Author: T Giraud <timothee.giraud@ums-riate.fr>
 Maintainer: T Giraud <timothee.giraud@ums-riate.fr>
-Description: Fricking description
+Description: Fricking description of the PACKAGE. All the STUFF.
 License: GPL (>=2.0)
 LazyData: true
 Depends:
+    R (>= 2.10),
     sp
 Imports:
     classInt,

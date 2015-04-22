@@ -4,20 +4,11 @@
 \alias{choro}
 \title{choro}
 \usage{
-choro(spdf, df, spdfid = NULL, dfid = NULL, var, distr = NULL,
-  col = NULL, nbclass = NULL, method = "quantile", pal1 = "blue.pal",
-  pal2 = "green.pal", breakval = 0, alpha = FALSE)
+choro(var, distr = NULL, col = NULL, nbclass = NULL,
+  method = "quantile")
 }
 \arguments{
-\item{spdf}{spatial dataframe (geometries)}
-
-\item{df}{dataframe (data)}
-
-\item{spdfid}{id of the spdf (if null, the first column is used)}
-
-\item{dfid}{id of the df (if null, the first column is used)}
-
-\item{var}{field used}
+\item{var}{vector of valuesused}
 
 \item{distr}{vector of classes}
 
@@ -26,25 +17,11 @@ choro(spdf, df, spdfid = NULL, dfid = NULL, var, distr = NULL,
 \item{nbclass}{number of classes targeted (if null, the Huntsberger method is used)}
 
 \item{method}{discretization method ("sd", "equal", "quantile", "jenks","q6","geom")}
-
-\item{pal1}{color palette 1}
-
-\item{pal2}{color palette 2}
-
-\item{breakval}{Diverging value}
-
-\item{alpha}{alphaeffect enhancing contrasts with opacity}
 }
 \value{
-list
+List: a vector of colors, colors and distr
 }
 \description{
 add color gradients to spdf according to data classes
-}
-\details{
-xxx
-}
-\examples{
-# xxx
 }
 

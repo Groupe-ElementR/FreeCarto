@@ -5,8 +5,7 @@
 \title{choroLayer}
 \usage{
 choroLayer(spdf, df, spdfid = NULL, dfid = NULL, var, distr = NULL,
-  col = NULL, nbclass = NULL, method = "quantile", pal1 = "blue.pal",
-  pal2 = "green.pal", breakval = 0, alpha = FALSE, add = F)
+  col = NULL, nbclass = NULL, method = "quantile", add = FALSE)
 }
 \arguments{
 \item{spdf}{spatial dataframe (geometries)}
@@ -29,15 +28,7 @@ the Huntsberger method is used)}
 \item{method}{discretization method ("sd", "equal",
 "quantile", "jenks","q6","geom")}
 
-\item{pal1}{color palette 1}
-
-\item{pal2}{color palette 2}
-
-\item{breakval}{Diverging value}
-
-\item{alpha}{alphaeffect enhancing contrasts with opacity}
-
-\item{add}{add=T}
+\item{add}{add = T}
 }
 \value{
 plot
@@ -50,7 +41,6 @@ plot a chorpoleth layer
 }
 \examples{
 choroLayer(spdf = TNdeleg.spdf, df = TNdeleg, var =  "housing", nbclass = 20,
-pal1="red.pal",pal2="green.pal",breakval=10000,method = "equal",add=FALSE,
-alpha=TRUE)
+method = "equal",add=FALSE)
 }
 

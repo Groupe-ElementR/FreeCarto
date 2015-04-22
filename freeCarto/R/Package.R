@@ -270,3 +270,10 @@ NULL
 #' @source UMS RIATE
 #' @docType data
 NULL
+
+
+#' @title Countries
+#' @name countries.spdf
+#' @description Countries
+#' @docType data
+NULL

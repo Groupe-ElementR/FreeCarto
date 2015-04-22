@@ -11,7 +11,7 @@
 #' @param col Color of the frame
 #' @param coltitle Color of the Title
 #' @param north Noth arrow
-#' @param north South arrow
+#' @param south South arrow
 #' @export
 #' @examples
 #' data("TNdeleg")
@@ -50,8 +50,8 @@ layoutLayer <- function(title = "Title of the map, year",
   if(north==T){
     xarrow<-x2-delta*1.5
     yarrow <- y2-delta*2
-    xx <- c(xarrow,xarrow+delta/2,xarrow+delta*1)
-    yy <- c(yarrow,yarrow+delta*1.5,yarrow)
+    xx <- c(xarrow,xarrow + delta / 2, xarrow + delta * 1)
+    yy <- c(yarrow, yarrow + delta * 1.5, yarrow)
     polygon(xx, yy, col = "#DDDDDD", border = "#DDDDDD")
     text(xarrow+delta*.5,yarrow,"N",adj=c(0.5,1.5),cex=0.8,font=2,col="#DDDDDD")
   }
@@ -60,10 +60,9 @@ layoutLayer <- function(title = "Title of the map, year",
     xarrow <- x2 - delta * 1.5
     yarrow <- y2 - delta * 2
     xx <- c(xarrow, xarrow + delta / 2, xarrow + delta * 1)
-    yy <- c(yarrow, yarrow - delta * 1.5, yarrow)
+    yy <- c(yarrow + delta * 1.5,yarrow, yarrow + delta * 1.5)
     polygon(xx, yy, col = "#DDDDDD", border = "#DDDDDD")
-    text(xarrow + delta * .5 , yarrow + delta * 2, "S", adj=c(0.5,1.5), cex=0.8, font=2,
-         col="#DDDDDD")
+    text(xarrow+delta*.5,yarrow,"S",adj=c(0.5,1.5),cex=0.8,font=2,col="#DDDDDD")
   }
 
 
