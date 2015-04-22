@@ -6,7 +6,7 @@
 \usage{
 layoutLayer(title = "Title of the map, year", sources = "Source(s)",
   author = "Author(s)", col = "black", coltitle = "white", scale = 0,
-  frame = TRUE, north = FALSE)
+  frame = TRUE, north = FALSE, south = FALSE)
 }
 \arguments{
 \item{title}{Title of the map}
@@ -24,6 +24,8 @@ layoutLayer(title = "Title of the map, year", sources = "Source(s)",
 \item{frame}{Wheither displaying a frame or not}
 
 \item{north}{Noth arrow}
+
+\item{south}{South arrow}
 }
 \description{
 layoutLayer function.
