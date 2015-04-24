@@ -8,10 +8,10 @@
 #' @param var character; name of the numeric field in \code{df} to plot.
 #' @param symbols character; type of symbols, one of "circles", "squares" or "height").
 #' @param col character; color of symbols.
-#' @param col2 character; second color of symbols .
+#' @param col2 character; second color of symbols (see Details).
 #' @param breakval numeric; breaking value (see Details).
 #' @param k numeric; share of the map occupied by the biggest symbol.
-#' @param fixmax numeric; value of the biggest symbol.
+#' @param fixmax numeric; value of the biggest symbol. (optional)
 #' @param pos character; position of the legend, one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright".
 #' @param title character; title of the legend.
 #' @param add boolean; whether to add the layer to an existing plot (TRUE) or not (FALSE).
