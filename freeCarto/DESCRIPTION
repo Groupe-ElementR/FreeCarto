@@ -19,4 +19,3 @@ Suggests:
     rgdal,
     knitr
 Encoding: UTF-8
-VignetteBuilder: knitr
