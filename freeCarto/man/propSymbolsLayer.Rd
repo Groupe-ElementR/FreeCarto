@@ -4,42 +4,46 @@
 \alias{propSymbolsLayer}
 \title{Proportional Symbols Layer}
 \usage{
-propSymbolsLayer(spdf, df, spdfid = NA, dfid = NA, var,
+propSymbolsLayer(spdf, df, spdfid = NULL, dfid = NULL, var,
   symbols = "circles", col = "#E84923", col2 = "#7DC437", breakval = 0,
-  k = 0.2, fixmax = FALSE, pos = "bottomleft", title = var,
+  k = 0.02, fixmax = NULL, pos = "bottomleft", title = var,
   add = TRUE)
 }
 \arguments{
-\item{spdf}{Spatial*DataFrame}
+\item{spdf}{Spatial*DataFrame; if \code{spdf} is a SpatialPolygonsDataFrame symbols are plotted on centroids.}
 
-\item{df}{DataFrame with Ids and Labels}
+\item{df}{data.frame; \code{df} contains the values to plot.}
 
-\item{spdfid}{Ids of the obj Spatial*DataFrame}
+\item{spdfid}{character; id field in \code{spdf}, default to the first column of the \code{spdf} data.frame. (optional)}
 
-\item{dfid}{Ids of the DataFrame}
+\item{dfid}{character; id field in \code{df}, default to the first column of \code{df}. (optional)}
 
-\item{var}{Symbols variable}
+\item{var}{character; name of the numeric field in \code{df} to plot.}
 
-\item{symbols}{Type of symbol ("circles", "squares", "height")}
+\item{symbols}{character; type of symbols, one of "circles", "squares" or "height").}
 
-\item{col}{Symbols color}
+\item{col}{character; color of symbols.}
 
-\item{col2}{Symbols color if the break value (\code{breakval})is relevant}
+\item{col2}{character; second color of symbols .}
 
-\item{breakval}{Breaking value if 2 colors are needed}
+\item{breakval}{numeric; breaking value (see Details).}
 
-\item{k}{Share of the map occupied by symbols}
+\item{k}{numeric; share of the map occupied by the biggest symbol.}
 
-\item{fixmax}{Whether the maximum value is fixed or not}
+\item{fixmax}{numeric; value of the biggest symbol.}
 
-\item{pos}{Position of the legend}
+\item{pos}{character; position of the legend, one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright".}
 
-\item{title}{Title of the legend}
+\item{title}{character; title of the legend.}
 
-\item{add}{Whether to add the layer to an existing map (TRUE) or not (FALSE)}
+\item{add}{boolean; whether to add the layer to an existing plot (TRUE) or not (FALSE).}
 }
 \description{
-Proportional Symbols Layer
+Plot a proportional symbols layer. Various symbols are availables.
+}
+\details{
+if the (\code{breakval}) parameter is set.
+ This parameter allows to plot symbols of two colors: first color for value > break.val, second color for value <=break.val.
 }
 \examples{
 data("TNdeleg")

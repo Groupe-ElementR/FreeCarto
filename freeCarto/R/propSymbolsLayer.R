@@ -1,28 +1,33 @@
 #' @title Proportional Symbols Layer
 #' @name propSymbolsLayer
-#' @param spdf Spatial*DataFrame
-#' @param df DataFrame with Ids and Labels
-#' @param spdfid Ids of the obj Spatial*DataFrame
-#' @param dfid Ids of the DataFrame
-#' @param var Symbols variable
-#' @param symbols Type of symbol ("circles", "squares", "height")
-#' @param col Symbols color
-#' @param col2 Symbols color if the break value (\code{breakval})is relevant
-#' @param breakval Breaking value if 2 colors are needed
-#' @param k Share of the map occupied by symbols
-#' @param fixmax Whether the maximum value is fixed or not
-#' @param pos Position of the legend
-#' @param title Title of the legend
-#' @param add Whether to add the layer to an existing map (TRUE) or not (FALSE)
+#' @description Plot a proportional symbols layer. Various symbols are availables.
+#' @param spdf Spatial*DataFrame; if \code{spdf} is a SpatialPolygonsDataFrame symbols are plotted on centroids.
+#' @param df data.frame; \code{df} contains the values to plot.
+#' @param spdfid character; id field in \code{spdf}, default to the first column of the \code{spdf} data.frame. (optional)
+#' @param dfid character; id field in \code{df}, default to the first column of \code{df}. (optional)
+#' @param var character; name of the numeric field in \code{df} to plot.
+#' @param symbols character; type of symbols, one of "circles", "squares" or "height").
+#' @param col character; color of symbols.
+#' @param col2 character; second color of symbols .
+#' @param breakval numeric; breaking value (see Details).
+#' @param k numeric; share of the map occupied by the biggest symbol.
+#' @param fixmax numeric; value of the biggest symbol.
+#' @param pos character; position of the legend, one of "topleft", "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright".
+#' @param title character; title of the legend.
+#' @param add boolean; whether to add the layer to an existing plot (TRUE) or not (FALSE).
+#' @details if the (\code{breakval}) parameter is set.
+#'  This parameter allows to plot symbols of two colors: first color for value > break.val, second color for value <=break.val.
 #' @export
 #' @import sp
 #' @examples
 #' data("TNdeleg")
-propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "circles",
-                             col="#E84923", col2="#7DC437", breakval = 0, k = 0.2, fixmax = FALSE,
+propSymbolsLayer <- function(spdf, df, spdfid = NULL, dfid = NULL, var,
+                             symbols = "circles",
+                             col="#E84923", col2="#7DC437", breakval = 0,
+                             k = 0.02, fixmax = NULL,
                              pos = "bottomleft", title = var, add = TRUE){
-  if (is.na(spdfid)){spdfid <- names(spdf@data)[1]}
-  if (is.na(dfid)){dfid <- names(df)[1]}
+  if (is.null(spdfid)){spdfid <- names(spdf@data)[1]}
+  if (is.null(dfid)){dfid <- names(df)[1]}
   dots <- cbind(spdf@data[,spdfid], as.data.frame(sp::coordinates(spdf)))
   colnames(dots) <- c(spdfid, "x", "y")
   dots <- data.frame(dots, df[match(dots[,spdfid], df[,dfid]),])
@@ -34,18 +39,18 @@ propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "c
   y2 <- sp::bbox(spdf)[4]
   hfdc <- (x2-x1)
   sfdc <- (x2-x1)*(y2-y1)
-  sc <- sum(abs(dots[,var]),na.rm = TRUE)
-
-  if (fixmax == FALSE){
-    dots$circleSize <- sqrt((abs(dots[,var]) * k * sfdc / sc) / pi) # surface des cercles
-    dots$squareSize <-  sqrt(abs(dots[,var]) * k * sfdc / sc) # surface des carrés
-    dots$heightSize <- abs(dots[,var]) * k * hfdc / sc * 10 # Hauteur des barres
+  #   sc <- sum(abs(dots[,var]),na.rm = TRUE)
+  sc <- max(abs(dots[,var]),na.rm = TRUE)
+  if (is.null(fixmax)){
+    dots$circleSize <- sqrt((abs(dots[, var]) * k * sfdc / sc) / pi)
+    dots$squareSize <-  sqrt(abs(dots[, var]) * k * sfdc / sc)
+    dots$heightSize <- abs(dots[,var]) * k * hfdc / sc * 10
   }
 
-  if (fixmax == TRUE){
-    dots$circleSize <- sqrt((abs(dots[, var]) * k) / pi) # surface des cercles
-    dots$squareSize <-  sqrt(abs(dots[, var]) * k ) # surface des carrés
-    dots$heightSize <- abs(dots[, var]) * k * 10 # Hauteur des barres
+  if (!is.null(fixmax)){
+    dots$circleSize <- sqrt((abs(dots[, var]) * k * sfdc / fixmax) / pi)
+    dots$squareSize <-  sqrt(abs(dots[, var]) * k * sfdc / fixmax)
+    dots$heightSize <- abs(dots[, var]) * k * hfdc / fixmax * 10
   }
 
   dots$var2 <- ifelse(dots[, var] >= breakval,"sup","inf")
@@ -57,7 +62,8 @@ propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "c
 
   # CIRCLES
   if (symbols == "circles"){
-    symbols(dots[, c("x", "y")], circles = dots$circleSize, bg = mycols, add = add,
+    symbols(dots[, c("x", "y")], circles = dots$circleSize, bg = mycols,
+            add = add,
             inches = FALSE, asp = 1, xlab = "", ylab = "")
     sizevect <- dots$circleSize
     varvect <- dots[,var]
@@ -65,7 +71,8 @@ propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "c
 
   # SQUARES
   if (symbols == "squares"){
-    symbols(dots[, c("x", "y")], squares = dots$squareSize, bg = mycols, add = add, inches = FALSE, asp = 1, xlab = "", ylab = "")
+    symbols(dots[, c("x", "y")], squares = dots$squareSize, bg = mycols,
+            add = add, inches = FALSE, asp = 1, xlab = "", ylab = "")
     sizevect <- dots$squareSize
     varvect <- dots[,var]
   }
@@ -75,7 +82,8 @@ propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "c
     width<-min((par()$usr[4]-par()$usr[3])/40,(par()$usr[2]-par()$usr[1])/40)
     tmp <- as.matrix(data.frame(width,dots$heightSize))
     dots$y2 <- dots$y+dots$heightSize/2
-    symbols(dots[,c("x","y2")], rectangles = tmp, add = add, bg = mycols, inches = FALSE, asp = 1, xlab = "", ylab = "")
+    symbols(dots[,c("x","y2")], rectangles = tmp, add = add, bg = mycols,
+            inches = FALSE, asp = 1, xlab = "", ylab = "")
     sizevect <- dots$heightSize
     varvect<- dots[,var]
   }
@@ -84,8 +92,6 @@ propSymbolsLayer <- function(spdf, df, spdfid = NA, dfid = NA, var, symbols = "c
                          sizevect = sizevect, varvect = varvect,
                          col = col, col2 = col2, symbols = symbols,
                          nbCols = nbCols, breakval = breakval)
-
-
 }
 
 
