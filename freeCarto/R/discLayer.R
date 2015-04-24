@@ -66,5 +66,12 @@ spdf@data <- data.frame(spdf@data,sizesMap)
 
 # Cartographie
 plot(spdf, col=col,lwd=spdf@data$sizesMap,add=add)
+
+# Legend
+
+LegendSizeLines(pos = "bottomleft", legTitle = "Title of the legend", legTitleCex = 0.8,
+legValuesCex = 0.6, distr = distr, thickness = sizes, col =col, round =2, nodata = FALSE)
+
+
 }
 
