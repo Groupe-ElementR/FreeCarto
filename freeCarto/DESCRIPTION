@@ -1,10 +1,11 @@
 Package: freeCarto
 Title: Wot Da Pack Do
 Version: 0.1
-Author: T Giraud <timothee.giraud@ums-riate.fr>
-Maintainer: T Giraud <timothee.giraud@ums-riate.fr>
+Authors@R: c(
+      person("Timothee", "Giraud", email = "timothee.giraud@ums-riate.fr", role = c("cre","aut")),
+      person("Nicolas", "Lambert", email = "nicolas.lambert@ums-riate.fr", role = c("aut")))
 Description: Fricking description of the PACKAGE. All the STUFF.
-License: GPL (>=2.0)
+License: GPL-3
 LazyData: true
 Depends:
     R (>= 2.10),
