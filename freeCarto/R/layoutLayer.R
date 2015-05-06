@@ -10,15 +10,22 @@
 #' @param frame Wheither displaying a frame or not
 #' @param col Color of the frame
 #' @param coltitle Color of the Title
+#' @param bg Background color
 #' @param north Noth arrow
 #' @param south South arrow
+#' @param extent extent (add = FALSE)
 #' @export
 #' @examples
 #' data("TNdeleg")
 layoutLayer <- function(title = "Title of the map, year",
                       sources = "Source(s)", author = "Author(s)",
-                      col = "black", coltitle = "white",
-                      scale = 0, frame = TRUE, north = FALSE, south = FALSE){
+                      col = "black", coltitle = "white", bg = NULL,
+                      scale = 0, frame = TRUE, north = FALSE, south = FALSE,
+                      extent = NULL){
+  if (!is.null(extent)){
+    staticLayer(spdf = extent, border  = NA, col = NA, add = FALSE)
+  }
+
   mapExtent <- par()$usr
   x1 <- mapExtent[1]
   x2 <- mapExtent[2]
@@ -79,6 +86,7 @@ layoutLayer <- function(title = "Title of the map, year",
        cex=0.6,font=3)
 
   # FRAME
-  if(frame == TRUE){rect(x1, y1, x2, y2, border = col)}
+  if(frame == TRUE){rect(x1, y1, x2, y2, border = col, col = bg)}
 }
+
 
